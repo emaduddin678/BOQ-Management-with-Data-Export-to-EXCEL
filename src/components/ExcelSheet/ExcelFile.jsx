@@ -37,7 +37,7 @@ const Test = ({ data }) => {
       boq.BOQ_ID !== ""
     );
   };
-  console.log(abc());
+  // console.log(abc());
 
   const saveTableDataToDatabase = (isExport) => {
     console.log(boq);

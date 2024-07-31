@@ -125,7 +125,7 @@ const BoqContextProvider = ({ children }) => {
     }));
   }, [allProduct]);
   
-  console.log(boq);
+  // console.log(boq);
 
   const saveTableDataToDatabase = () => {
     console.log(boq);

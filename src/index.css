@@ -117,18 +117,7 @@ nav .menu-items {
   text-decoration: none;
   position: relative;
 }
-.nav-links li div:hover:before {
-  content: "";
-  position: absolute;
-  left: -7px;
-  height: 5px;
-  width: 5px;
-  border-radius: 50%;
-  background-color: var(--primary-color);
-}
-body.dark li div:hover:before {
-  background-color: var(--text-color);
-}
+
 .menu-items li > button {
   display: flex;
   align-items: center;
@@ -136,18 +125,7 @@ body.dark li div:hover:before {
   text-decoration: none;
   position: relative;
 }
-.nav-links li > button:hover:before {
-  content: "";
-  position: absolute;
-  left: -7px;
-  height: 5px;
-  width: 5px;
-  border-radius: 50%;
-  background-color: var(--primary-color);
-}
-body.dark li > button:hover:before {
-  background-color: var(--text-color);
-}
+
 
 .menu-items li div .link-name {
   font-size: 18px;
