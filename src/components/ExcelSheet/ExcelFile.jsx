@@ -1,9 +1,20 @@
 import isEqual from "lodash.isequal";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useDownloadExcel } from "react-export-table-to-excel";
+import { useAllModalContext } from "../../context/AllModalContext";
+import { RiFileExcel2Line } from "react-icons/ri";
+import { FaRegEdit } from "react-icons/fa";
+import { FaRegSave } from "react-icons/fa";
+import { useBoqContext } from "../../context/BoqContext";
+import getFormData from "../../utility/getFormData";
+import Swal from "sweetalert2";
+import axios from "axios";
 
 const Test = ({ data }) => {
   const tableRef = useRef(null);
+  const { createBoqModal, handleBoqPopup, handleCloseBOQ } =
+    useAllModalContext();
+  const { boq } = useBoqContext();
 
   const [sumOfTotal, setSumOfTotal] = useState(0);
   const [sumOfAgencyCommission, setSumOfAgencyCommission] = useState(0);
@@ -14,11 +25,56 @@ const Test = ({ data }) => {
 
   const { onDownload } = useDownloadExcel({
     currentTableRef: tableRef.current,
-    filename: `${"he"}`,
+    filename: `${boq.BOQ_ID}`,
     sheet: "BOQSheet",
   });
 
-  
+  const abc = () => {
+    return (
+      boq.AEXP_BOQ_Creator !== "" &&
+      boq.Project_name !== "" &&
+      boq.GP_user_id !== "" &&
+      boq.BOQ_ID !== ""
+    );
+  };
+  console.log(abc());
+
+  const saveTableDataToDatabase = (isExport) => {
+    console.log(boq);
+    if (abc() && boq.BOQ.length !== 0 && isExport) {
+      axios
+        .post("/boq/create", getFormData(boq, true))
+        .then((res) => {
+          if (res.data.status) {
+            onDownload();
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: `${boq.Project_name} has been saved...`,
+              showConfirmButton: false,
+              timer: 2000,
+            });
+          }
+        })
+        .catch((err) => console.log(err));
+    } else {
+      axios
+        .post("/boq/create", getFormData(boq, true))
+        .then((res) => {
+          if (res.data.status) {
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: `${boq.Project_name} has been saved...`,
+              showConfirmButton: false,
+              timer: 2000,
+            });
+          }
+        })
+        .catch((err) => console.log(err));
+    }
+  };
+
   function findAllElements(arr) {
     const elementGroups = {};
     const result = [];
@@ -48,9 +104,8 @@ const Test = ({ data }) => {
       setSumOfTotal((prev) => prev + Number(dt.totalAmount));
       setSumOfAgencyCommission((prev) => prev + Number(dt.ASF_amount));
     });
-
   }, [data]);
-  
+
   const prevDataRef = useRef();
 
   const memoizedData = useMemo(() => data, [data]);
@@ -79,14 +134,33 @@ const Test = ({ data }) => {
 
   return (
     <div className="flex justify-center flex-col items-center gap-4 mt-10">
-      <button
-        type="button"
-        onClick={onDownload}
-        className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
-      >
-        {" "}
-        Export excel{" "}
-      </button>
+      <div className="btn-group flex gap-4 items-center justify-between">
+        <button
+          type="button"
+          onClick={handleBoqPopup}
+          className="flex gap-2 items-center focus:outline-none text-white bg-yellow-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 "
+        >
+          <FaRegEdit />
+          {`${abc() ? "Edit": "Create"} BOQ Project`}
+        </button>
+        <button
+          type="button"
+          onClick={() => saveTableDataToDatabase(true)}
+          className="flex gap-2 items-center focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 "
+        >
+          {" "}
+          <RiFileExcel2Line />
+          Export excel
+        </button>
+        <button
+          type="button"
+          onClick={() => saveTableDataToDatabase(false)}
+          className="flex gap-2 items-center focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 "
+        >
+          <FaRegSave />
+          Save Table Data
+        </button>
+      </div>
 
       <table ref={tableRef}>
         <thead>

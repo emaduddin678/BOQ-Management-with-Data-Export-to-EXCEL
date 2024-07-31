@@ -16,15 +16,12 @@ const Layout = () => {
   const { logout } = useAuth();
   const { createBoqModal, handleBoqPopup, handleCloseBOQ } =
     useAllModalContext();
-  console.log("🚀 ~ Layout ~ createBoqModal:", createBoqModal);
+  // console.log("🚀 ~ Layout ~ createBoqModal:", createBoqModal);
 
   const { createClientModal, handleOpenClient, handleCloseClient, fetchUsers } =
     useClientContext();
   const { allBoq, fetchBoq, createBoqIsDisabled, boqDisable } = useBoqContext();
   // console.log(allBoq);
-
-  const [clientManagementShow, setClientManagementShow] = useState(false);
-  const [historyShow, setHistoryShow] = useState(false);
 
   useEffect(() => {
     // Set initial mode based on localStorage

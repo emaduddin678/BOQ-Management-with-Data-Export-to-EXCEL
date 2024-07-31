@@ -3,6 +3,7 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import getFormData from "../utility/getFormData";
 import Swal from "sweetalert2";
+import { useAllModalContext } from "./AllModalContext";
 
 const BoqContext = createContext();
 
@@ -22,12 +23,13 @@ const BoqContextProvider = ({ children }) => {
     Project_name: "",
     AEXP_BOQ_Creator: "",
     GP_user_id: "",
+    GP_user_email: "",
     BOQ: [],
     BOQ_ID: "",
   });
 
-  const getGPUserId = (id) => {
-    setBoq((prev) => ({ ...prev, GP_user_id: id }));
+  const getGPUserId = (id, email) => {
+    setBoq((prev) => ({ ...prev, GP_user_id: id, GP_user_email: email }));
   };
   const generateRandomId = () => {
     const id = Math.random() * 1000;
@@ -94,7 +96,7 @@ const BoqContextProvider = ({ children }) => {
       GP_user_id === "" ||
       BOQ_ID === ""
     ) {
-      // console.log("helo");
+      console.log(boq);
       setError(true);
       return false;
     } else {
@@ -108,12 +110,12 @@ const BoqContextProvider = ({ children }) => {
       setAllProduct((prev) => [...prev, searchedItem]);
     } else {
       Swal.fire({
-        title: "Did you Create the project?",
+        title: "Did you Create BOQ project?",
         text: "You must create a project first..",
         icon: "question",
-        timer: 1000,
+        timer: 2000,
       });
-      handleCloseBOQ();
+      // handleCloseBOQ();
     }
   };
   useEffect(() => {
@@ -122,22 +124,24 @@ const BoqContextProvider = ({ children }) => {
       BOQ: allProduct,
     }));
   }, [allProduct]);
+  
+  console.log(boq);
 
-  useEffect(() => {
-    getFormData(boq, true);
-    if (
-      boq.AEXP_BOQ_Creator !== "" &&
-      boq.Project_name !== "" &&
-      boq.GP_user_id !== "" &&
-      boq.BOQ.length !== 0 &&
-      boq.BOQ_ID !== ""
-    ) {
-      axios
-        .post("/boq/create", getFormData(boq, true))
-        .then((res) => console.log(res.data.data.BOQ))
-        .catch((err) => console.log(err));
-    }
-  }, [boq]);
+  const saveTableDataToDatabase = () => {
+    console.log(boq);
+    // if (
+    //   boq.AEXP_BOQ_Creator !== "" &&
+    //   boq.Project_name !== "" &&
+    //   boq.GP_user_id !== "" &&
+    //   boq.BOQ.length !== 0 &&
+    //   boq.BOQ_ID !== ""
+    // ) {
+    //   axios
+    //     .post("/boq/create", getFormData(boq, true))
+    //     .then((res) => console.log(res.data.data.BOQ))
+    //     .catch((err) => console.log(err));
+    // }
+  };
 
   const fetchBoq = () => {
     axios
@@ -170,6 +174,7 @@ const BoqContextProvider = ({ children }) => {
     allProduct,
     createBoqIsDisabled,
     boqDisable,
+    saveTableDataToDatabase,
   };
   return <BoqContext.Provider value={value}>{children}</BoqContext.Provider>;
 };

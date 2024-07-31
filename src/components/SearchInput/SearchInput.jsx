@@ -3,8 +3,11 @@ import { useQuery } from "@tanstack/react-query";
 import Test from "../ExcelSheet/ExcelFile";
 import axios from "axios";
 import { useBoqContext } from "../../context/BoqContext";
+import { useAllModalContext } from "../../context/AllModalContext";
 
 const SearchInput = () => {
+  const { createBoqModal, handleBoqPopup, handleCloseBOQ } =
+    useAllModalContext();
   // console.log("Hello")
   const [searchTerm, setSearchTerm] = useState("");
   // const [searchedItem, setSearchedItem] = useState({});

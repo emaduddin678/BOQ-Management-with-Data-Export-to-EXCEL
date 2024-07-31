@@ -42,7 +42,10 @@ const CreateBoqPopUp = ({ handleCloseBOQ }) => {
           highlightedIndex < clientsIdWithName.length
         ) {
           console.log(clientsIdWithName[highlightedIndex]);
-          getGPUserId(clientsIdWithName[highlightedIndex].id); // Assuming the item has a 'name' property
+          getGPUserId(
+            clientsIdWithName[highlightedIndex].id,
+            clientsIdWithName[highlightedIndex].email_id
+          ); // Assuming the item has a 'name' property
           // setAllProduct((prev) => [...prev, clientsIdWithName[highlightedIndex]]);
           setChanging(false);
           setIsFocused(false);
@@ -68,10 +71,19 @@ const CreateBoqPopUp = ({ handleCloseBOQ }) => {
 
   const handleItemClick = (item) => {
     setGpClientName(item);
-    getGPUserId(item.id); // Adjust according to the structure of your data
+    console.log(item);
+    getGPUserId(item.id, item.email_id); // Adjust according to the structure of your data
     setIsFocused(false);
   };
 
+   const abc = () => {
+     return (
+       boq.AEXP_BOQ_Creator !== "" &&
+       boq.Project_name !== "" &&
+       boq.GP_user_id !== "" &&
+       boq.BOQ_ID !== ""
+     );
+   };
   // console.log(clientsIdWithName);
   const hanleFormSubmit = (e) => {
     e.preventDefault();
@@ -92,7 +104,7 @@ const CreateBoqPopUp = ({ handleCloseBOQ }) => {
           <div className="relative bg-black rounded-lg shadow ">
             <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t ">
               <h3 className="text-lg font-semibold text-white ">
-                Create New Product
+                {`${abc() ? "Edit BOQ Project" : "Create BOQ Project"}`}
               </h3>
               {/* {console.log(handleCloseBOQ)} */}
               <button
@@ -173,7 +185,7 @@ const CreateBoqPopUp = ({ handleCloseBOQ }) => {
                     htmlFor="BOQ_ID"
                     className="block mb-2 text-sm font-medium text-white "
                   >
-                    Provider code
+                    BOQ ID
                   </label>
                   <div className="relative">
                     <span className="absolute inset-y-0 right-0 flex items-center px-2">
@@ -239,7 +251,7 @@ const CreateBoqPopUp = ({ handleCloseBOQ }) => {
                     htmlFor="GP_user_id"
                     className="block mb-2 text-sm font-medium  text-white "
                   >
-                    Client Id
+                    Client Email
                   </label>
                   {isFocused && clientsIdWithName.length && (
                     <ul className="absolute z-50 bg-white border border-gray-300 w-[43%] rounded-md mt-1">
@@ -264,12 +276,13 @@ const CreateBoqPopUp = ({ handleCloseBOQ }) => {
                       ))}
                     </ul>
                   )}
+                  {console.log(boq)}
                   {boq?.GP_user_id && !isFocused && !changing && (
                     <input
                       type="text"
                       name="GP_user_id Name"
                       autoComplete="off"
-                      value={boq?.GP_user_id}
+                      value={boq?.GP_user_email}
                       id="GP_user_id"
                       disabled
                       className={`${
