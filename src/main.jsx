@@ -14,6 +14,7 @@ import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext.jsx";
 import ClientContextProvider from "./context/ClientContext.jsx";
 import BoqContextProvider from "./context/BoqContext.jsx";
+import { AllModalContext } from "./context/AllModalContext.jsx";
 
 // Create a client
 const queryClient = new QueryClient();
@@ -46,15 +47,17 @@ axios.interceptors.response.use(
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <AuthProvider>
-      <ClientContextProvider>
-        <BoqContextProvider>
-          <QueryClientProvider client={queryClient}>
-            <BrowserRouter>
-              <App />
-            </BrowserRouter>
-          </QueryClientProvider>
-        </BoqContextProvider>
-      </ClientContextProvider>
+      <AllModalContext>
+        <ClientContextProvider>
+          <BoqContextProvider>
+            <QueryClientProvider client={queryClient}>
+              <BrowserRouter>
+                <App />
+              </BrowserRouter>
+            </QueryClientProvider>
+          </BoqContextProvider>
+        </ClientContextProvider>
+      </AllModalContext>
     </AuthProvider>
   </React.StrictMode>
 );

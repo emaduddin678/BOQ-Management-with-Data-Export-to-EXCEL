@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import getFormData from "../utility/getFormData";
+import Swal from "sweetalert2";
 
 const BoqContext = createContext();
 
@@ -84,6 +85,7 @@ const BoqContextProvider = ({ children }) => {
       });
     }
   };
+
   const validateboq = () => {
     const { Project_name, AEXP_BOQ_Creator, GP_user_id, BOQ_ID } = boq;
     if (
@@ -102,8 +104,16 @@ const BoqContextProvider = ({ children }) => {
   };
 
   const createBoq = (searchedItem) => {
-    if (Object.keys(searchedItem).length !== 0) {
+    if (validateboq() && Object.keys(searchedItem).length !== 0) {
       setAllProduct((prev) => [...prev, searchedItem]);
+    } else {
+      Swal.fire({
+        title: "Did you Create the project?",
+        text: "You must create a project first..",
+        icon: "question",
+        timer: 1000,
+      });
+      handleCloseBOQ();
     }
   };
   useEffect(() => {
@@ -124,7 +134,7 @@ const BoqContextProvider = ({ children }) => {
     ) {
       axios
         .post("/boq/create", getFormData(boq, true))
-        .then((res) => console.log(res.data.data))
+        .then((res) => console.log(res.data.data.BOQ))
         .catch((err) => console.log(err));
     }
   }, [boq]);
@@ -143,6 +153,7 @@ const BoqContextProvider = ({ children }) => {
       setCreateBoqIsDisabled(false);
     }
   };
+
   const value = {
     allBoq,
     boq,

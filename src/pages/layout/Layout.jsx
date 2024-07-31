@@ -9,17 +9,20 @@ import { useAuth } from "../../context/AuthContext";
 import HistoryPage from "../historyPage/HistoryPage";
 import { useBoqContext } from "../../context/BoqContext";
 import formateDate from "../../utility/getFormattedDate";
+import { useAllModalContext } from "../../context/AllModalContext";
 
 const Layout = () => {
   const navigate = useNavigate();
   const { logout } = useAuth();
+  const { createBoqModal, handleBoqPopup, handleCloseBOQ } =
+    useAllModalContext();
+  console.log("🚀 ~ Layout ~ createBoqModal:", createBoqModal);
 
   const { createClientModal, handleOpenClient, handleCloseClient, fetchUsers } =
     useClientContext();
   const { allBoq, fetchBoq, createBoqIsDisabled, boqDisable } = useBoqContext();
   // console.log(allBoq);
 
-  const [createBoqModal, setCreateBoqModal] = useState(false);
   const [clientManagementShow, setClientManagementShow] = useState(false);
   const [historyShow, setHistoryShow] = useState(false);
 
@@ -35,18 +38,11 @@ const Layout = () => {
     // if (getStatus === "close") {
     //   document.getElementById("navId").classList.toggle("close");
     // }
-   
   }, []);
   useEffect(() => {
     boqDisable();
   }, []);
 
-
-  const goToDashBoard = () => {
-    setClientManagementShow(false);
-    setHistoryShow(false);
-    setCreateBoqModal(false);
-  };
   const handleModeToggle = () => {
     document.body.classList.toggle("dark");
     if (document.body.classList.contains("dark")) {
@@ -67,29 +63,6 @@ const Layout = () => {
   const handleLogout = () => {
     logout();
   };
-  const handleBoqPopup = () => {
-    setClientManagementShow(false);
-    setHistoryShow(false);
-    setCreateBoqModal(true);
-  };
-  const handleCloseBOQ = () => {
-    // setCreateBoqModal(false);
-    setHistoryShow(false);
-    setClientManagementShow(false);
-    setCreateBoqModal(false);
-  };
-  const handleHistoryShow = () => {
-    setCreateBoqModal(false);
-    setClientManagementShow(false);
-    setHistoryShow(true);
-  };
-  const handleClientShow = () => {
-    setCreateBoqModal(false);
-    setHistoryShow(false);
-    setClientManagementShow(true);
-  };
-
-  // console.log(window.location.href.includes("/dashboard/createboq"));
 
   return (
     <div
@@ -115,7 +88,10 @@ const Layout = () => {
         <div className="menu-items">
           <ul className="nav-links">
             <li>
-              <div style={{ cursor: "pointer" }} onClick={goToDashBoard}>
+              <div
+                style={{ cursor: "pointer" }}
+                onClick={() => navigate("/dashboard")}
+              >
                 <svg
                   width="24"
                   fill="#707070"
@@ -127,9 +103,7 @@ const Layout = () => {
                 >
                   <path d="M127.12,60.22,115.46,48.56h0L69,2.05a7,7,0,0,0-9.9,0L12.57,48.53h0L.88,60.22a3,3,0,0,0,4.24,4.24l6.57-6.57V121a7,7,0,0,0,7,7H46a7,7,0,0,0,7-7V81a1,1,0,0,1,1-1H74a1,1,0,0,1,1,1v40a7,7,0,0,0,7,7h27.34a7,7,0,0,0,7-7V57.92l6.54,6.54a3,3,0,0,0,4.24-4.24ZM110.34,121a1,1,0,0,1-1,1H82a1,1,0,0,1-1-1V81a7,7,0,0,0-7-7H54a7,7,0,0,0-7,7v40a1,1,0,0,1-1,1H18.69a1,1,0,0,1-1-1V51.9L63.29,6.29a1,1,0,0,1,1.41,0l45.63,45.63Z" />
                 </svg>
-                <Link to={"/dashboard"} className="link-name">
-                  Dashboard
-                </Link>
+                <button className="link-name">Dashboard</button>
               </div>
             </li>
             <li>
@@ -154,7 +128,10 @@ const Layout = () => {
               </button>
             </li>
             <li>
-              <div style={{ cursor: "pointer" }} onClick={handleHistoryShow}>
+              <div
+                style={{ cursor: "pointer" }}
+                onClick={() => navigate("history")}
+              >
                 <svg
                   fill="#707070"
                   width="24"
@@ -170,7 +147,10 @@ const Layout = () => {
               </div>
             </li>
             <li>
-              <div style={{ cursor: "pointer" }}>
+              <div
+                style={{ cursor: "pointer" }}
+                onClick={() => navigate("client-user")}
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -185,12 +165,7 @@ const Layout = () => {
                     fill="black"
                   />
                 </svg>
-                <button
-                  onClick={() => navigate("client-user")}
-                  className="link-name"
-                >
-                  Client Management
-                </button>
+                <button className="link-name">Client Management</button>
               </div>
             </li>
           </ul>

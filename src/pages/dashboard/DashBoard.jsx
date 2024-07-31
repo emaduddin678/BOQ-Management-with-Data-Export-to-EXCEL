@@ -37,52 +37,7 @@ const DashBoard = () => {
     // }
     boqDisable()
   }, []);
-  const goToDashBoard = () => {
-    setClientManagementShow(false);
-    setHistoryShow(false);
-    setCreateBoqModal(false);
-  };
-  const handleModeToggle = () => {
-    document.body.classList.toggle("dark");
-    if (document.body.classList.contains("dark")) {
-      localStorage.setItem("mode", "dark");
-    } else {
-      localStorage.setItem("mode", "light");
-    }
-  };
-  const handleSidebarToggle = () => {
-    document.getElementById("navId").classList.toggle("close");
-    if (document.getElementById("navId").classList.contains("close")) {
-      localStorage.setItem("status", "close");
-    } else {
-      localStorage.setItem("status", "open");
-    }
-  };
 
-  const handleLogout = () => {
-    logout();
-  };
-  const handleCreateBOQ = () => {
-    setClientManagementShow(false);
-    setHistoryShow(false);
-    setCreateBoqModal(true);
-  };
-  const handleCloseBOQ = () => {
-    // setCreateBoqModal(false);
-    setHistoryShow(false);
-    setClientManagementShow(false);
-    setCreateBoqModal(false);
-  };
-  const handleHistoryShow = () => {
-    setCreateBoqModal(false);
-    setClientManagementShow(false);
-    setHistoryShow(true);
-  };
-  const handleClientShow = () => {
-    setCreateBoqModal(false);
-    setHistoryShow(false);
-    setClientManagementShow(true);
-  };
   // console.log(JSON.parse(allBoq[0].BOQ));
   // console.log(allBoq.length ? JSON.parse(JSON.parse( allBoq[0].BOQ)): "");
   // console.log(typeof (allBoq[0].BOQ)); 
