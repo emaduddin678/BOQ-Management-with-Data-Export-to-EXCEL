@@ -80,6 +80,7 @@ const DashBoard = () => {
                 <th className="p-3">Client Name</th>
                 <th className="p-3">Provider Name</th>
                 <th className="p-3">Created At</th>
+                <th className="p-3">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -102,6 +103,9 @@ const DashBoard = () => {
                     <td className="p-3">
                       {/* {console.log(formateDate(item.created_at))} */}
                       <p>{formateDate(item.created_at).split("UTC")[0]}</p>
+                    </td>
+                    <td className="p-3">
+                      <p onClick={()=>navigate("history")} className="cursor-pointer rounded-md inline text-white font-semibold px-3 py-1 bg-teal-500">View Project Details</p>
                     </td>
                   </tr>
                 ))
