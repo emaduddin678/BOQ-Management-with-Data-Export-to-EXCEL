@@ -16,7 +16,7 @@ const DashBoard = () => {
 
   const { createClientModal, handleOpenClient, handleCloseClient, fetchUsers } =
     useClientContext();
-  const { allBoq, fetchBoq } = useBoqContext();
+  const { allBoq, fetchBoq, boqDisable } = useBoqContext();
   // console.log(allBoq);
 
   const [createBoqModal, setCreateBoqModal] = useState(false);
@@ -35,8 +35,8 @@ const DashBoard = () => {
     // if (getStatus === "close") {
     //   document.getElementById("navId").classList.toggle("close");
     // }
+    boqDisable()
   }, []);
-
   const goToDashBoard = () => {
     setClientManagementShow(false);
     setHistoryShow(false);
@@ -83,7 +83,9 @@ const DashBoard = () => {
     setHistoryShow(false);
     setClientManagementShow(true);
   };
-  // console.log(historyShow);
+  // console.log(JSON.parse(allBoq[0].BOQ));
+  // console.log(allBoq.length ? JSON.parse(JSON.parse( allBoq[0].BOQ)): "");
+  // console.log(typeof (allBoq[0].BOQ)); 
 
   return (
     <div className="dash-content">

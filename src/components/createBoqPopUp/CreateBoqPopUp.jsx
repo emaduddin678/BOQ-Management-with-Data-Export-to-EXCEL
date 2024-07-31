@@ -7,7 +7,7 @@ import { MdAutorenew } from "react-icons/md";
 const CreateBoqPopUp = ({ handleCloseBOQ }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [highlightedIndex, setHighlightedIndex] = useState(0);
-  const [gpClientName,setGpClientName ] = useState({})
+  const [gpClientName, setGpClientName] = useState({});
   const [changing, setChanging] = useState(false);
   const navigate = useNavigate();
 
@@ -75,9 +75,10 @@ const CreateBoqPopUp = ({ handleCloseBOQ }) => {
   // console.log(clientsIdWithName);
   const hanleFormSubmit = (e) => {
     e.preventDefault();
-    console.log(boq);
+    // console.log(boq);
     if (validateboq()) {
       navigate("createboq");
+      handleCloseBOQ();
     }
   };
   // console.log(error)

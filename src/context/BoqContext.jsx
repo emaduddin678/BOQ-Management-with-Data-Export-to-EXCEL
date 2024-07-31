@@ -16,6 +16,7 @@ const BoqContextProvider = ({ children }) => {
   const [nameForGP_user_id, setNameForGP_user_id] = useState("");
   const [clientsIdWithName, setClientsIdWithName] = useState([]);
   const [allProduct, setAllProduct] = useState([]);
+  const [createBoqIsDisabled, setCreateBoqIsDisabled] = useState(false);
   const [boq, setBoq] = useState({
     Project_name: "",
     AEXP_BOQ_Creator: "",
@@ -135,9 +136,13 @@ const BoqContextProvider = ({ children }) => {
       .catch((err) => console.log(err));
   };
 
-  // useEffect(() => {
-  //   fetchBoq();
-  // }, []);
+  const boqDisable = () => {
+    if (window.location.href.includes("/dashboard/createboq")) {
+      setCreateBoqIsDisabled(true);
+    } else {
+      setCreateBoqIsDisabled(false);
+    }
+  };
   const value = {
     allBoq,
     boq,
@@ -152,6 +157,8 @@ const BoqContextProvider = ({ children }) => {
 
     createBoq,
     allProduct,
+    createBoqIsDisabled,
+    boqDisable,
   };
   return <BoqContext.Provider value={value}>{children}</BoqContext.Provider>;
 };

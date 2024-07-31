@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useBoqContext } from "./../../context/BoqContext";
 import formateDate from "../../utility/getFormattedDate";
 import { MdDeleteForever } from "react-icons/md";
@@ -6,20 +6,24 @@ import { GrDocumentUpdate } from "react-icons/gr";
 import removeUnderScore from "../../utility/removeUderScore";
 
 const HistoryPage = () => {
-  const { allBoq } = useBoqContext();
-
+  const { allBoq, boqDisable } = useBoqContext();
+  useEffect(() => {
+    boqDisable();
+  }, []);
   return (
     <div className="w-full overflow-x-auto  mt-20">
       <table className="text-xs w-full">
         <thead className="">
           <tr className="text-left border-[1px] bg-[#23c087]">
-            <th className="p-3  border-[1px] border-gray-800 w-20" >Id</th>
+            <th className="p-3  border-[1px] border-gray-800 w-20">Id</th>
             <th className="p-3  border-[1px] border-gray-800 !w-32" width="200">
               Project Name
             </th>
             <th className="p-3  border-[1px] border-gray-800">Creator Name</th>
             <th className="p-3  border-[1px] border-gray-800">BOQ Id</th>
-            <th className="p-3  border-[1px] border-gray-800">GP User Contact Number</th>
+            <th className="p-3  border-[1px] border-gray-800">
+              GP User Contact Number
+            </th>
             {/* <th className="p-3  border-[1px] border-gray-800">GP User Email</th>
             <th className="p-3  border-[1px] border-gray-800">GP User Name</th>
 
@@ -128,7 +132,10 @@ const HistoryPage = () => {
             ))
           ) : (
             <tr>
-              <td colSpan="6" className="p-3  border-[1px] border-gray-800 text-center bg-gray-700">
+              <td
+                colSpan="6"
+                className="p-3  border-[1px] border-gray-800 text-center bg-gray-700"
+              >
                 No data available
               </td>
             </tr>

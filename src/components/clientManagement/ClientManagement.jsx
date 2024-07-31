@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useClientContext } from "../../context/ClientContext";
+import { useBoqContext } from "../../context/BoqContext";
 
 const ClientManagement = () => {
   const {
@@ -13,8 +14,10 @@ const ClientManagement = () => {
     fetchUsersById,
     handleOpenUpdateClient,
   } = useClientContext();
-
-  
+  const { boqDisable } = useBoqContext();
+  useEffect(() => {
+    boqDisable();
+  }, []);
 
   return (
     <div className="pt-20">

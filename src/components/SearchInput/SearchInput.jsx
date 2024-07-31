@@ -1,5 +1,5 @@
+import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import React, { useState } from "react";
 import Test from "../ExcelSheet/ExcelFile";
 import axios from "axios";
 import { useBoqContext } from "../../context/BoqContext";
@@ -30,11 +30,15 @@ const SearchInput = () => {
     unit_price_with_tax: 0,
     updated_at: null,
   });
-  
+
   const [isFocused, setIsFocused] = useState(false);
   const [highlightedIndex, setHighlightedIndex] = useState(0);
 
-  const { createBoq, allProduct } = useBoqContext();
+  const { createBoq, allProduct, boqDisable } = useBoqContext();
+
+  useEffect(() => {
+    boqDisable();
+  }, []);
 
   const handleKeyDown = (event) => {
     if (!data || data.length === 0) return;
@@ -157,38 +161,19 @@ const SearchInput = () => {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    createBoq(searchedItem);
-    setSearchTerm("");
-    setSearchedItem({});
+    if (Object.keys(searchedItem).length !== 0) {
+      createBoq(searchedItem);
+      setSearchTerm("");
+      setSearchedItem({});
 
-    // if (Object.keys(searchedItem).length !== 0) {
-    //   setAllProduct((prev) => [...prev, searchedItem]);
-    //   setSearchTerm("");
-    //   setSearchedItem({});
-    // }
+      //   setAllProduct((prev) => [...prev, searchedItem]);
+      //   setSearchTerm("");
+      //   setSearchedItem({});
+    }
   };
 
-  // console.log("searchedItem", searchedItem);
-  // console.log(searchedItem);
-  // console.log(allProduct);
-
-  //  useEffect(() => {
-  //    const fetchData = async () => {
-  //      try {
-  //        const response = await axios.get(
-  //          `https://boq-backend.xri.com.bd/search-by-item-name/s`
-  //        );
-
-  //        console.log(response.data); // Log the data directly
-  //      } catch (error) {
-  //        console.error("Error fetching data:", error);
-  //      }
-  //    };
-
-  //    fetchData();
-  //  }, []);
   return (
-    <div className="mt-20 px-2">
+    <div className="mt-14 px-2">
       <form className="searchField flex gap-2 justify-between items-end ">
         <div className="flex flex-col items-center font-medium">
           <label htmlFor="itName" className="text-sm ">
@@ -216,7 +201,7 @@ const SearchInput = () => {
             className="w-full rounded-md focus:ring focus:ring-opacity-75  "
           />
           {isFocused && data && (
-            <ul className="absolute top-[70px] left-2 z-50 bg-white border border-gray-300 w-1/3 rounded-md mt-1">
+            <ul className="absolute top-32 left-4 z-50 bg-white border border-gray-300 w-1/3 rounded-md mt-1">
               {data.map((item, index) => (
                 <li
                   key={index}

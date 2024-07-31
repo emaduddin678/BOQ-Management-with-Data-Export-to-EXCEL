@@ -16,7 +16,7 @@ const Layout = () => {
 
   const { createClientModal, handleOpenClient, handleCloseClient, fetchUsers } =
     useClientContext();
-  const { allBoq, fetchBoq } = useBoqContext();
+  const { allBoq, fetchBoq, createBoqIsDisabled, boqDisable } = useBoqContext();
   // console.log(allBoq);
 
   const [createBoqModal, setCreateBoqModal] = useState(false);
@@ -35,7 +35,12 @@ const Layout = () => {
     // if (getStatus === "close") {
     //   document.getElementById("navId").classList.toggle("close");
     // }
+   
   }, []);
+  useEffect(() => {
+    boqDisable();
+  }, []);
+
 
   const goToDashBoard = () => {
     setClientManagementShow(false);
@@ -62,7 +67,7 @@ const Layout = () => {
   const handleLogout = () => {
     logout();
   };
-  const handleCreateBOQ = () => {
+  const handleBoqPopup = () => {
     setClientManagementShow(false);
     setHistoryShow(false);
     setCreateBoqModal(true);
@@ -83,7 +88,8 @@ const Layout = () => {
     setHistoryShow(false);
     setClientManagementShow(true);
   };
-  // console.log(historyShow);
+
+  // console.log(window.location.href.includes("/dashboard/createboq"));
 
   return (
     <div
@@ -127,7 +133,11 @@ const Layout = () => {
               </div>
             </li>
             <li>
-              <div style={{ cursor: "pointer" }} onClick={handleCreateBOQ}>
+              <button
+                style={{ cursor: "pointer" }}
+                onClick={handleBoqPopup}
+                disabled={createBoqIsDisabled}
+              >
                 <svg
                   fill="#707070"
                   height="24"
@@ -140,8 +150,8 @@ const Layout = () => {
                     fillRule="evenodd"
                   />
                 </svg>
-                <button className="link-name">Create BOQ</button>
-              </div>
+                <span className="link-name">Create BOQ</span>
+              </button>
             </li>
             <li>
               <div style={{ cursor: "pointer" }} onClick={handleHistoryShow}>
@@ -175,7 +185,10 @@ const Layout = () => {
                     fill="black"
                   />
                 </svg>
-                <button onClick={()=>navigate("client-user")} className="link-name">
+                <button
+                  onClick={() => navigate("client-user")}
+                  className="link-name"
+                >
                   Client Management
                 </button>
               </div>

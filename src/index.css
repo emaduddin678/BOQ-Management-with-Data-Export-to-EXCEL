@@ -37,8 +37,6 @@ body.dark {
   --title-icon-color: #ccc;
 }
 
-
-
 /* === Custom Scroll Bar CSS === */
 ::-webkit-scrollbar {
   width: 8px;
@@ -131,7 +129,25 @@ nav .menu-items {
 body.dark li div:hover:before {
   background-color: var(--text-color);
 }
-
+.menu-items li > button {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  text-decoration: none;
+  position: relative;
+}
+.nav-links li > button:hover:before {
+  content: "";
+  position: absolute;
+  left: -7px;
+  height: 5px;
+  width: 5px;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+}
+body.dark li > button:hover:before {
+  background-color: var(--text-color);
+}
 
 .menu-items li div .link-name {
   font-size: 18px;
@@ -151,11 +167,31 @@ nav.close li div .link-name {
 }
 
 body.dark .nav-links li div:hover .link-name {
-    color: var(--text-color);
+  color: var(--text-color);
+}
+.menu-items li > button .link-name {
+  font-size: 18px;
+  font-weight: 400;
+  margin-left: 20px;
+  color: var(--black-light-color);
+  transition: var(--tran-05);
+}
+nav.close li > button .link-name {
+  opacity: 0;
+  display: none;
+  pointer-events: none;
+}
+
+.nav-links li > button:hover .link-name {
+  color: var(--primary-color);
+}
+
+body.dark .nav-links li > button:hover .link-name {
+  color: var(--text-color);
 }
 .menu-items .logout-mode {
-    padding-top: 10px;
-    border-top: 1px solid var(--border-color);
+  padding-top: 10px;
+  border-top: 1px solid var(--border-color);
 }
 nav.close .moonIcon {
   opacity: 0;
@@ -165,7 +201,6 @@ nav.close .moonIcon {
 /* .menu-items .logout-mode li:first-child {
   padding-left: 50px;
 } */
-
 
 .menu-items .mode {
   display: flex;
@@ -289,7 +324,7 @@ nav.close ~ .dashboard .top {
 .dash-content .title {
   display: flex;
   align-items: center;
-  margin: 60px 0 30px 0;
+  margin: 20px 0 30px 0;
 }
 .dash-content .title i {
   position: relative;
