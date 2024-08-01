@@ -17,22 +17,6 @@ const HistoryPage = () => {
   const { allBoq, fetchBoq, singleBoqFieldUpdate, postThisData } =
     useHistoryContext();
 
-  const MyContainer = ({ className, children }) => {
-    return (
-      <div
-        className="z-50"
-        style={{ padding: "16px", background: "#216ba5", color: "#fff" }}
-      >
-        <CalendarContainer className={className}>
-          <div style={{ background: "#f0f0f0" }}>
-            What is your favorite day?
-          </div>
-          <div style={{ position: "relative" }}>{children}</div>
-        </CalendarContainer>
-      </div>
-    );
-  };
-
   useEffect(() => {
     fetchBoq();
     boqDisable();
@@ -119,7 +103,7 @@ const HistoryPage = () => {
                 key={item.id}
                 className="border-[1px] border-opacity-20 border-gray-700 "
               >
-                {console.log(item)}
+                {/* {console.log(item)} */}
                 {/* {console.log(item)} */}
                 <td className="  border-[1px] border-gray-800 text-center">
                   <p>{index + 1}</p>
@@ -160,7 +144,7 @@ const HistoryPage = () => {
                       }
                       value={item.PO_number === null ? "" : item.PO_number}
                       id="PO_number"
-                      className="w-full !p-0 !pl-2 border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm"
+                      className="w-full !p-0 !pl-2 remove_arrow border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm"
                       placeholder="Type PO Number..."
                     />
                   </div>
@@ -179,7 +163,7 @@ const HistoryPage = () => {
                     </span>
                     <input
                       autoComplete="off"
-                      type="text"
+                      type="number"
                       name="PO_value"
                       onChange={(e) =>
                         singleBoqFieldUpdate(
@@ -190,13 +174,13 @@ const HistoryPage = () => {
                       }
                       value={item.PO_value === null ? "" : item.PO_value}
                       id="PO_value"
-                      className="w-full !p-0 !pl-2 border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm"
+                      className="w-full !p-0 !pl-2 remove_arrow border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm"
                       placeholder="Type PO value..."
                     />
                   </div>
                 </td>
                 <td className="!p-0  border-[1px] border-gray-800 text-center">
-                  <div className="relative">
+                  <div className="relative flex justify-start">
                     <span className="absolute inset-y-0 right-0 flex items-center px-2">
                       <button
                         onClick={() =>
@@ -210,7 +194,7 @@ const HistoryPage = () => {
                       </button>
                     </span>
 
-                    {/* <input
+                    <input
                       autoComplete="off"
                       type="date"
                       name="PO_receiving_date"
@@ -227,60 +211,10 @@ const HistoryPage = () => {
                           : item.PO_receiving_date
                       }
                       id="PO_receiving_date"
-                      className="w-full !p-0 !pl-2 border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm"
-                      placeholder="Type PO Number..."
-                    /> */}
-                    {/* <input
-                      datepicker
-                      type="date"
-                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      placeholder="Select date"
-                    /> */}
-                    {/* <DatePicker
-                      className="w-full"
-                      showIcon
-                      selected={startDate}
-                      onChange={(date) => setStartDate(date)}
-                      icon={
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="1em"
-                          height="1em"
-                          viewBox="0 0 48 48"
-                        >
-                          <mask id="ipSApplication0">
-                            <g
-                              fill="none"
-                              stroke="#fff"
-                              strokeLinejoin="round"
-                              strokeWidth="4"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                d="M40.04 22v20h-32V22"
-                              ></path>
-                              <path
-                                fill="#fff"
-                                d="M5.842 13.777C4.312 17.737 7.263 22 11.51 22c3.314 0 6.019-2.686 6.019-6a6 6 0 0 0 6 6h1.018a6 6 0 0 0 6-6c0 3.314 2.706 6 6.02 6c4.248 0 7.201-4.265 5.67-8.228L39.234 6H8.845l-3.003 7.777Z"
-                              ></path>
-                            </g>
-                          </mask>
-                          <path
-                            fill="currentColor"
-                            d="M0 0h48v48H0z"
-                            mask="url(#ipSApplication0)"
-                          ></path>
-                        </svg>
-                      }
-                      calendarContainer={MyContainer}
-                    /> */}
-                    {/* <input
-                      id="timePickerInput"
-                      name="start_time"
-                      type="date"
-                      onClick={(this)=>{this.showPicker();}}
-                      required
-                    /> */}
+                      className="w-[80%] mr-auto !p-0 !pl-2 !border-none !outline-none !focus:outline-none !ring-0 !focus:ring-0 placeholder:text-sm text-sm"
+                      // placeholder="Type  Number..."
+                    />
+                    
                   </div>
                 </td>
                 <td className="!p-0  border-[1px] border-gray-800 text-center">

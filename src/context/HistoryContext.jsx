@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState } from "react";
 import axios from "axios";
 import getFormData from "../utility/getFormData";
+import Swal from "sweetalert2";
 
 const HistoryContext = createContext();
 
@@ -39,10 +40,26 @@ const HistoryContextProvider = ({ children }) => {
       .post(`boq/update/${id}`, formData)
       .then((res) => {
         console.log(res);
-        fetchBoq();
+        if(res.data.status){
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Your work has been saved",
+            showConfirmButton: false,
+            timer: 1500
+          });
+          fetchBoq();
+        }
       })
       .catch((err) => {
-        throw err;
+        Swal.fire({
+          position: "top-end",
+          icon:"error",
+          title: err,
+          showConfirmButton: false,
+          timer: 1500
+        });
+        console.log(err)
       });
   };
 
