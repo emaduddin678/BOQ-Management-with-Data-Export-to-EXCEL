@@ -211,7 +211,11 @@ const HistoryPage = () => {
                           : item.PO_receiving_date
                       }
                       id="PO_receiving_date"
-                      className="w-[80%] mr-auto !p-0 !pl-2 !border-none !outline-none !focus:outline-none !ring-0 !focus:ring-0 placeholder:text-sm text-sm"
+                      className={`${
+                        item.PO_receiving_date === null
+                          ? ""
+                          : "!text-black"
+                      } w-[80%] mr-auto !p-0 !pl-2 !border-none !outline-none !focus:outline-none !ring-0 !focus:ring-0 placeholder:text-sm text-sm`}
                       // placeholder="Type  Number..."
                     />
                     

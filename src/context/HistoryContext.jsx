@@ -23,15 +23,35 @@ const HistoryContextProvider = ({ children }) => {
   };
 
   const singleBoqFieldUpdate = (value, fName, index) => {
-    setAllBoq((prevAllBoq) =>
+    console.log(allBoq)
+    if(fName.includes("date")){
+      if(value.includes("mm/dd/yyyy")){
+        Swal.fire({
+          position: "top-end",
+          icon: "question",
+          title: "Did you select date??",
+          showConfirmButton: false,
+          timer: 1500
+        });
+
+      }else{
+        setAllBoq((prevAllBoq) =>
+        prevAllBoq.map((boq, i) => (i === index ? { ...boq, [fName]: value } : boq))
+      );
+    }
+    }else{
+      setAllBoq((prevAllBoq) =>
       prevAllBoq.map((boq, i) => (i === index ? { ...boq, [fName]: value } : boq))
     );
+  }
   };
 
   const postThisData = (id, index, field) => {
     // console.log(id, index, field);
     // console.log(field, allBoq[index][field]);
     // console.log(allBoq[index]);
+
+
     const formData = new FormData();
     formData.append(field, allBoq[index][field]);
     // console.log(field, allBoq[index][field]);
