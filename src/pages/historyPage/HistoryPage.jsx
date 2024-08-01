@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useBoqContext } from "./../../context/BoqContext";
 import formateDate from "../../utility/getFormattedDate";
-import { MdDeleteForever } from "react-icons/md";
+import { MdAutorenew, MdDeleteForever } from "react-icons/md";
 import { GrDocumentUpdate } from "react-icons/gr";
 import removeUnderScore from "../../utility/removeUderScore";
 
@@ -104,17 +104,106 @@ const HistoryPage = () => {
                 <td className="  border-[1px] border-gray-800 text-center">
                   <p>{item.BOQ_ID}</p>
                 </td>
-                <td className="!p-0  border-[1px] border-gray-800 text-center">
-                  <input type="text" className="w-full !p-0 border-none" />
+                <td className="!p-0  border-b-[1px] border-gray-800 text-center">
+                  
+                  <div className="relative">
+                    <span className="absolute inset-y-0 right-0 flex items-center px-2">
+                      <button
+                        // onClick={generateRandomId}
+                        type="button"
+                        title="search"
+                        className="p-1 focus:outline-none bg-green-500 rounded-md"
+                      >
+                        <MdAutorenew />
+                      </button>
+                    </span>
+                    <input
+                      autoComplete="off"
+                      type="text"
+                      name="BOQ_ID"
+                      // onChange={handleFormInput}
+                      // value={boq.BOQ_ID}
+                      id="BOQ_ID"
+                      className="w-full !p-0 !pl-2 border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm"
+                      placeholder="Type PO Number..."
+                      required
+                    />
+                  </div>
                 </td>
                 <td className="!p-0  border-[1px] border-gray-800 text-center">
-                  <input type="text" className="w-full !p-0 border-none" />
+                   <div className="relative">
+                    <span className="absolute inset-y-0 right-0 flex items-center px-2">
+                      <button
+                        // onClick={generateRandomId}
+                        type="button"
+                        title="search"
+                        className="p-1 focus:outline-none bg-green-500 rounded-md"
+                      >
+                        <MdAutorenew />
+                      </button>
+                    </span>
+                    <input
+                      autoComplete="off"
+                      type="text"
+                      name="BOQ_ID"
+                      // onChange={handleFormInput}
+                      // value={boq.BOQ_ID}
+                      id="BOQ_ID"
+                      className="w-full !p-0 !pl-2 border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm"
+                      placeholder="Type PO Number..."
+                      required
+                    />
+                  </div>
                 </td>
                 <td className="!p-0  border-[1px] border-gray-800 text-center">
-                  <input type="text" className="w-full !p-0 border-none" />
+                   <div className="relative">
+                    <span className="absolute inset-y-0 right-0 flex items-center px-2">
+                      <button
+                        // onClick={generateRandomId}
+                        type="button"
+                        title="search"
+                        className="p-1 focus:outline-none bg-green-500 rounded-md"
+                      >
+                        <MdAutorenew />
+                      </button>
+                    </span>
+                    <input
+                      autoComplete="off"
+                      type="text"
+                      name="BOQ_ID"
+                      // onChange={handleFormInput}
+                      // value={boq.BOQ_ID}
+                      id="BOQ_ID"
+                      className="w-full !p-0 !pl-2 border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm"
+                      placeholder="Type PO Number..."
+                      required
+                    />
+                  </div>
                 </td>
                 <td className="!p-0  border-[1px] border-gray-800 text-center">
-                  <input type="text" className="w-full !p-0 border-none" />
+                   <div className="relative">
+                    <span className="absolute inset-y-0 right-0 flex items-center px-2">
+                      <button
+                        // onClick={generateRandomId}
+                        type="button"
+                        title="search"
+                        className="p-1 focus:outline-none bg-green-500 rounded-md"
+                      >
+                        <MdAutorenew />
+                      </button>
+                    </span>
+                    <input
+                      autoComplete="off"
+                      type="text"
+                      name="BOQ_ID"
+                      // onChange={handleFormInput}
+                      // value={boq.BOQ_ID}
+                      id="BOQ_ID"
+                      className="w-full !p-0 !pl-2 border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm"
+                      placeholder="Type PO Number..."
+                      required
+                    />
+                  </div>
                 </td>
                 <td className="  border-[1px] border-gray-800 text-center">
                   <p>{item.GP_user_name}</p>
@@ -126,25 +215,179 @@ const HistoryPage = () => {
                   <p>{item.GP_user_mail_id}</p>
                 </td>
                 <td className="!p-0  border-[1px] border-gray-800 text-center">
-                  <input type="text" className="w-full !p-0 border-none" />
+                   <div className="relative">
+                    <span className="absolute inset-y-0 right-0 flex items-center px-2">
+                      <button
+                        // onClick={generateRandomId}
+                        type="button"
+                        title="search"
+                        className="p-1 focus:outline-none bg-green-500 rounded-md"
+                      >
+                        <MdAutorenew />
+                      </button>
+                    </span>
+                    <input
+                      autoComplete="off"
+                      type="text"
+                      name="BOQ_ID"
+                      // onChange={handleFormInput}
+                      // value={boq.BOQ_ID}
+                      id="BOQ_ID"
+                      className="w-full !p-0 !pl-2 border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm"
+                      placeholder="Type PO Number..."
+                      required
+                    />
+                  </div>
                 </td>
                 <td className="!p-0  border-[1px] border-gray-800 text-center">
-                  <input type="text" className="w-full !p-0 border-none" />
+                   <div className="relative">
+                    <span className="absolute inset-y-0 right-0 flex items-center px-2">
+                      <button
+                        // onClick={generateRandomId}
+                        type="button"
+                        title="search"
+                        className="p-1 focus:outline-none bg-green-500 rounded-md"
+                      >
+                        <MdAutorenew />
+                      </button>
+                    </span>
+                    <input
+                      autoComplete="off"
+                      type="text"
+                      name="BOQ_ID"
+                      // onChange={handleFormInput}
+                      // value={boq.BOQ_ID}
+                      id="BOQ_ID"
+                      className="w-full !p-0 !pl-2 border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm"
+                      placeholder="Type PO Number..."
+                      required
+                    />
+                  </div>
                 </td>
                 <td className="!p-0  border-[1px] border-gray-800 text-center">
-                  <input type="text" className="w-full !p-0 border-none" />
+                   <div className="relative">
+                    <span className="absolute inset-y-0 right-0 flex items-center px-2">
+                      <button
+                        // onClick={generateRandomId}
+                        type="button"
+                        title="search"
+                        className="p-1 focus:outline-none bg-green-500 rounded-md"
+                      >
+                        <MdAutorenew />
+                      </button>
+                    </span>
+                    <input
+                      autoComplete="off"
+                      type="text"
+                      name="BOQ_ID"
+                      // onChange={handleFormInput}
+                      // value={boq.BOQ_ID}
+                      id="BOQ_ID"
+                      className="w-full !p-0 !pl-2 border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm"
+                      placeholder="Type PO Number..."
+                      required
+                    />
+                  </div>
                 </td>
                 <td className="!p-0  border-[1px] border-gray-800 text-center">
-                  <input type="text" className="w-full !p-0 border-none" />
+                   <div className="relative">
+                    <span className="absolute inset-y-0 right-0 flex items-center px-2">
+                      <button
+                        // onClick={generateRandomId}
+                        type="button"
+                        title="search"
+                        className="p-1 focus:outline-none bg-green-500 rounded-md"
+                      >
+                        <MdAutorenew />
+                      </button>
+                    </span>
+                    <input
+                      autoComplete="off"
+                      type="text"
+                      name="BOQ_ID"
+                      // onChange={handleFormInput}
+                      // value={boq.BOQ_ID}
+                      id="BOQ_ID"
+                      className="w-full !p-0 !pl-2 border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm"
+                      placeholder="Type PO Number..."
+                      required
+                    />
+                  </div>
                 </td>
                 <td className="!p-0  border-[1px] border-gray-800 text-center">
-                  <input type="text" className="w-full !p-0 border-none" />
+                   <div className="relative">
+                    <span className="absolute inset-y-0 right-0 flex items-center px-2">
+                      <button
+                        // onClick={generateRandomId}
+                        type="button"
+                        title="search"
+                        className="p-1 focus:outline-none bg-green-500 rounded-md"
+                      >
+                        <MdAutorenew />
+                      </button>
+                    </span>
+                    <input
+                      autoComplete="off"
+                      type="text"
+                      name="BOQ_ID"
+                      // onChange={handleFormInput}
+                      // value={boq.BOQ_ID}
+                      id="BOQ_ID"
+                      className="w-full !p-0 !pl-2 border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm"
+                      placeholder="Type PO Number..."
+                      required
+                    />
+                  </div>
                 </td>
                 <td className="!p-0  border-[1px] border-gray-800 text-center">
-                  <input type="text" className="w-full !p-0 border-none" />
+                   <div className="relative">
+                    <span className="absolute inset-y-0 right-0 flex items-center px-2">
+                      <button
+                        // onClick={generateRandomId}
+                        type="button"
+                        title="search"
+                        className="p-1 focus:outline-none bg-green-500 rounded-md"
+                      >
+                        <MdAutorenew />
+                      </button>
+                    </span>
+                    <input
+                      autoComplete="off"
+                      type="text"
+                      name="BOQ_ID"
+                      // onChange={handleFormInput}
+                      // value={boq.BOQ_ID}
+                      id="BOQ_ID"
+                      className="w-full !p-0 !pl-2 border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm"
+                      placeholder="Type PO Number..."
+                      required
+                    />
+                  </div>
                 </td>
                 <td className="!p-0  border-[1px] border-gray-800 text-center">
-                  <input type="text" className="w-full !p-0 border-none" />
+                   <div className="relative">
+                    <span className="absolute inset-y-0 right-0 flex items-center px-2">
+                      <button
+                        // onClick={generateRandomId}
+                        type="button"
+                        title="search"
+                        className="p-1 focus:outline-none bg-green-500 rounded-md"
+                      >
+                        <MdAutorenew />
+                      </button>
+                    </span>
+                    <input
+                      autoComplete="off"
+                      type="text"
+                      name="BOQ_ID"
+                      // onChange={handleFormInput}
+                      // value={boq.BOQ_ID}
+                      id="BOQ_ID"
+                      className="w-full !p-0 !pl-2 border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm"
+                      placeholder="Type PO Number..."
+                      required
+                    />
+                  </div>
                 </td>
 
                 <td className="  border-[1px] border-gray-800 text-center">

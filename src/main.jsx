@@ -15,6 +15,7 @@ import { AuthProvider } from "./context/AuthContext.jsx";
 import ClientContextProvider from "./context/ClientContext.jsx";
 import BoqContextProvider from "./context/BoqContext.jsx";
 import { AllModalContext } from "./context/AllModalContext.jsx";
+import HistoryContext from "./context/HistoryContext.jsx";
 
 // Create a client
 const queryClient = new QueryClient();
@@ -48,15 +49,17 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <AuthProvider>
       <AllModalContext>
-        <ClientContextProvider>
-          <BoqContextProvider>
-            <QueryClientProvider client={queryClient}>
-              <BrowserRouter>
-                <App />
-              </BrowserRouter>
-            </QueryClientProvider>
-          </BoqContextProvider>
-        </ClientContextProvider>
+        <HistoryContext>
+          <ClientContextProvider>
+            <BoqContextProvider>
+              <QueryClientProvider client={queryClient}>
+                <BrowserRouter>
+                  <App />
+                </BrowserRouter>
+              </QueryClientProvider>
+            </BoqContextProvider>
+          </ClientContextProvider>
+        </HistoryContext>
       </AllModalContext>
     </AuthProvider>
   </React.StrictMode>

@@ -70,7 +70,7 @@ const Login = () => {
           <h2>Login</h2>
           <div className={classes.input_field}>
             <input
-              className={classes.inputF}
+              className={` ring-0 focus:ring-0 `}
               name="email"
               onChange={handleChange}
               type="text"
@@ -78,7 +78,12 @@ const Login = () => {
             <label>Enter your email</label>
           </div>
           <div className={classes.input_field}>
-            <input name="password" onChange={handleChange} type="password" />
+            <input
+              className={` ring-0 focus:ring-0 `}
+              name="password"
+              onChange={handleChange}
+              type="password"
+            />
             <label>Enter your password</label>
           </div>
           <div>
