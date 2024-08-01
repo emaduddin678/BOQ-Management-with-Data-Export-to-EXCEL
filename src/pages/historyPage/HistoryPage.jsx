@@ -5,11 +5,13 @@ import {
   MdAutorenew,
   MdDeleteForever,
   MdOutlineDateRange,
+  MdOutlineEditNote,
 } from "react-icons/md";
 import { GrDocumentUpdate } from "react-icons/gr";
 import removeUnderScore from "../../utility/removeUderScore";
 import { useHistoryContext } from "../../context/HistoryContext.jsx";
 import DatePicker, { CalendarContainer } from "react-datepicker";
+import { AiOutlineDelete } from "react-icons/ai";
 
 const HistoryPage = () => {
   const { boqDisable } = useBoqContext();
@@ -653,16 +655,15 @@ const HistoryPage = () => {
                   <div className="flex  justify-center items-center gap-4">
                     <span
                       // onClick={() => handleOpenUpdateClient(item)}
-                      className="px-3 py-1 font-semibold rounded-md bg-violet-400 text-gray-900"
+                      className="px-4 py-1 font-semibold rounded-md bg-violet-400 text-gray-900"
                     >
-                      
-                      <GrDocumentUpdate />
+                      <MdOutlineEditNote className="text-white text-xl" />
                     </span>
                     <span
                       onClick={() => handleDeleteBoq(item.id)}
                       className="cursor-pointer px-3 py-1 font-semibold rounded-md bg-red-500 text-gray-900"
                     >
-                      <MdDeleteForever />
+                      <AiOutlineDelete className="text-white text-base" />
                     </span>
                   </div>
                 </td>
