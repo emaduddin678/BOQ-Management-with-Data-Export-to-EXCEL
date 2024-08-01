@@ -110,7 +110,7 @@ const ClientContextProvider = ({ children }) => {
       .then((result) => {
         if (result.isConfirmed) {
           axios
-            .delete(`https://boq.xri.com.bd/v1/client-user/delete/${id}`)
+            .delete(`/client-user/delete/${id}`)
             .then((res) => {
               if (res.status === 200) {
                 fetchUsers();

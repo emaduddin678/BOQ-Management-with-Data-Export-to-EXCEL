@@ -14,8 +14,13 @@ import DatePicker, { CalendarContainer } from "react-datepicker";
 const HistoryPage = () => {
   const { boqDisable } = useBoqContext();
   const [startDate, setStartDate] = useState(new Date());
-  const { allBoq, fetchBoq, singleBoqFieldUpdate, postThisData } =
-    useHistoryContext();
+  const {
+    allBoq,
+    fetchBoq,
+    singleBoqFieldUpdate,
+    postThisData,
+    handleDeleteBoq,
+  } = useHistoryContext();
 
   useEffect(() => {
     fetchBoq();
@@ -61,10 +66,10 @@ const HistoryPage = () => {
               GP USER Email
             </th>
 
-            <th className="p-3  border-[1px] border-gray-800 text-center w-40">
+            <th className="p-3  border-[1px] border-gray-800 text-center w-48">
               {removeUnderScore("Requisition_amount")}
             </th>
-            <th className="p-3  border-[1px] border-gray-800 text-center w-40">
+            <th className="p-3  border-[1px] border-gray-800 text-center w-48">
               {removeUnderScore("Received_amount")}
             </th>
 
@@ -75,16 +80,16 @@ const HistoryPage = () => {
             <th className="p-3  border-[1px] border-gray-800 text-center w-56">
               {removeUnderScore("Acknowledgement")}
             </th>
-            <th className="p-3  border-[1px] border-gray-800 text-center w-48">
+            <th className="p-3  border-[1px] border-gray-800 text-center w-52">
               {removeUnderScore("Receiving_status")}
             </th>
             <th className="p-3  border-[1px] border-gray-800 text-center w-44">
               {removeUnderScore("OTC")}
             </th>
-            <th className="p-3  border-[1px] border-gray-800 text-center w-52">
+            <th className="p-3  border-[1px] border-gray-800 text-center w-60">
               {removeUnderScore("Internal_bill_settlement")}
             </th>
-            <th className="p-3  border-[1px] border-gray-800 text-center w-44">
+            <th className="p-3  border-[1px] border-gray-800 text-center w-56">
               {removeUnderScore("3rd_party_office_pay")}
             </th>
 
@@ -439,9 +444,9 @@ const HistoryPage = () => {
                         Approved
                       </option>
                     </select>
-                  
                   </div>
                 </td>
+
                 <td className="!p-0  border-[1px] border-gray-800 text-center">
                   <div className="relative flex justify-start pl-2">
                     <span className="absolute inset-y-0 right-0 flex items-center px-2">
@@ -480,26 +485,168 @@ const HistoryPage = () => {
                       <option className="!px-2" value="True">
                         True
                       </option>
-                      <option
-                        className="!px-2"
-                        value="False"
-                      >
+                      <option className="!px-2" value="False">
                         False
                       </option>
-                     
                     </select>
-                  
                   </div>
                 </td>
 
-                
-                
+                <td className="!p-0  border-[1px] border-gray-800 text-center">
+                  <div className="relative flex justify-start pl-2">
+                    <span className="absolute inset-y-0 right-0 flex items-center px-2">
+                      <button
+                        onClick={() => postThisData(item.id, index, "OTC")}
+                        type="button"
+                        title="search"
+                        className="p-1 focus:outline-none bg-green-500 rounded-md"
+                      >
+                        <MdAutorenew />
+                      </button>
+                    </span>
+                    <select
+                      autoComplete="off"
+                      id="OTC"
+                      name="OTC"
+                      onChange={(e) =>
+                        singleBoqFieldUpdate(
+                          e.target.value,
+                          e.target.name,
+                          index
+                        )
+                      }
+                      value={item.OTC === null ? "" : item.OTC}
+                      className="w-[89%] !p-0 remove_arrow border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm"
+                    >
+                      <option className="!px-2 !text-gray-600" defaultValue="">
+                        Select OTC
+                      </option>
+                      <option className="!px-2" value="Yes">
+                        Yes
+                      </option>
+                      <option className="!px-2" value="No">
+                        No
+                      </option>
+                    </select>
+                  </div>
+                </td>
+                <td className="!p-0  border-[1px] border-gray-800 text-center">
+                  <div className="relative flex justify-start pl-2">
+                    <span className="absolute inset-y-0 right-0 flex items-center px-2">
+                      <button
+                        onClick={() =>
+                          postThisData(
+                            item.id,
+                            index,
+                            "Internal_bill_settlement"
+                          )
+                        }
+                        type="button"
+                        title="search"
+                        className="p-1 focus:outline-none bg-green-500 rounded-md"
+                      >
+                        <MdAutorenew />
+                      </button>
+                    </span>
+                    <select
+                      autoComplete="off"
+                      id="Internal_bill_settlement"
+                      name="Internal_bill_settlement"
+                      onChange={(e) =>
+                        singleBoqFieldUpdate(
+                          e.target.value,
+                          e.target.name,
+                          index
+                        )
+                      }
+                      value={
+                        item.Internal_bill_settlement === null
+                          ? ""
+                          : item.Internal_bill_settlement
+                      }
+                      className="w-[92%] !p-0 remove_arrow border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm"
+                    >
+                      <option className="!px-2 !text-gray-600" defaultValue="">
+                        Select Internal_bill_settlement
+                      </option>
+                      <option className="!px-2" value="Yes">
+                        Yes
+                      </option>
+                      <option className="!px-2" value="No">
+                        No
+                      </option>
+                      <option className="!px-2" value="Pirtially Done">
+                        Pirtially Done
+                      </option>
+                    </select>
+                  </div>
+                </td>
+                <td className="!p-0  border-[1px] border-gray-800 text-center">
+                  <div className="relative flex justify-start pl-2">
+                    <span className="absolute inset-y-0 right-0 flex items-center px-2">
+                      <button
+                        onClick={() =>
+                          postThisData(item.id, index, "3rd_party_office_pay")
+                        }
+                        type="button"
+                        title="search"
+                        className="p-1 focus:outline-none bg-green-500 rounded-md"
+                      >
+                        <MdAutorenew />
+                      </button>
+                    </span>
+                    <select
+                      autoComplete="off"
+                      id="3rd_party_office_pay"
+                      name="3rd_party_office_pay"
+                      onChange={(e) =>
+                        singleBoqFieldUpdate(
+                          e.target.value,
+                          e.target.name,
+                          index
+                        )
+                      }
+                      value={
+                        item["3rd_party_office_pay"] === null
+                          ? ""
+                          : item["3rd_party_office_pay"]
+                      }
+                      className="w-[89%] !p-0 remove_arrow border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm"
+                    >
+                      <option className="!px-2 !text-gray-600" defaultValue="">
+                        Select 3rd party office pay
+                      </option>
+                      <option className="!px-2" value="Yes">
+                        Yes
+                      </option>
+                      <option className="!px-2" value="No">
+                        No
+                      </option>
+                      <option className="!px-2" value="Pirtially Done">
+                        Pirtially Done
+                      </option>
+                    </select>
+                  </div>
+                </td>
 
                 <td className="  border-[1px] border-gray-800 text-center">
-                  <p>{item["3rd_party_office_pay"]}</p>
-                </td>
-                <td className="  border-[1px] border-gray-800 text-center">
-                  <p>{formateDate(item.created_at).split("UTC")[0]}</p>
+                  {/* <p>{formateDate(item.created_at).split("UTC")[0]}</p> */}
+                  <p class="text-sm font-semibold text-gray-800 bg-white shadow-md rounded-md">
+                    <span class="text-blue-500">
+                      {
+                        formateDate(item.created_at)
+                          .split("UTC")[0]
+                          .split(",")[0]
+                      }
+                    </span>
+                    <span class="text-red-500 text-sm">
+                      {
+                        formateDate(item.created_at)
+                          .split("UTC")[0]
+                          .split(",")[1]
+                      }
+                    </span>
+                  </p>
                 </td>
 
                 <td className="    border-b-[1px] border-gray-800  text-center h-full">
@@ -508,10 +655,11 @@ const HistoryPage = () => {
                       // onClick={() => handleOpenUpdateClient(item)}
                       className="px-3 py-1 font-semibold rounded-md bg-violet-400 text-gray-900"
                     >
+                      
                       <GrDocumentUpdate />
                     </span>
                     <span
-                      // onClick={() => handleDelete(item.id)}
+                      onClick={() => handleDeleteBoq(item.id)}
                       className="cursor-pointer px-3 py-1 font-semibold rounded-md bg-red-500 text-gray-900"
                     >
                       <MdDeleteForever />
