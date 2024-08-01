@@ -68,23 +68,23 @@ const HistoryPage = () => {
               {removeUnderScore("Received_amount")}
             </th>
 
-            <th className="p-3  border-[1px] border-gray-800 text-center w-36">
+            <th className="p-3  border-[1px] border-gray-800 text-center w-44">
               {removeUnderScore("Work_status")}
             </th>
 
-            <th className="p-3  border-[1px] border-gray-800 text-center w-36">
+            <th className="p-3  border-[1px] border-gray-800 text-center w-56">
               {removeUnderScore("Acknowledgement")}
             </th>
-            <th className="p-3  border-[1px] border-gray-800 text-center w-36">
+            <th className="p-3  border-[1px] border-gray-800 text-center w-48">
               {removeUnderScore("Receiving_status")}
             </th>
-            <th className="p-3  border-[1px] border-gray-800 text-center w-36">
+            <th className="p-3  border-[1px] border-gray-800 text-center w-44">
               {removeUnderScore("OTC")}
             </th>
-            <th className="p-3  border-[1px] border-gray-800 text-center w-36">
+            <th className="p-3  border-[1px] border-gray-800 text-center w-52">
               {removeUnderScore("Internal_bill_settlement")}
             </th>
-            <th className="p-3  border-[1px] border-gray-800 text-center w-36">
+            <th className="p-3  border-[1px] border-gray-800 text-center w-44">
               {removeUnderScore("3rd_party_office_pay")}
             </th>
 
@@ -283,7 +283,7 @@ const HistoryPage = () => {
                     </span>
                     <input
                       autoComplete="off"
-                      type="text"
+                      type="number"
                       name="Requisition_amount"
                       onChange={(e) =>
                         singleBoqFieldUpdate(
@@ -298,7 +298,7 @@ const HistoryPage = () => {
                           : item.Requisition_amount
                       }
                       id="Requisition_amount"
-                      className="w-full !p-0 !pl-2 border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm"
+                      className="w-full !p-0 !pl-2 remove_arrow border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm"
                       placeholder="Type requisition amount..."
                     />
                   </div>
@@ -319,7 +319,7 @@ const HistoryPage = () => {
                     </span>
                     <input
                       autoComplete="off"
-                      type="text"
+                      type="number"
                       name="Received_amount"
                       onChange={(e) =>
                         singleBoqFieldUpdate(
@@ -334,13 +334,13 @@ const HistoryPage = () => {
                           : item.Received_amount
                       }
                       id="Received_amount"
-                      className="w-full !p-0 !pl-2 border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm"
+                      className="w-full !p-0 !pl-2 remove_arrow border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm"
                       placeholder="Type Received amount..."
                     />
                   </div>
                 </td>
                 <td className="!p-0  border-[1px] border-gray-800 text-center">
-                  <div className="relative">
+                  <div className="relative flex justify-start pl-2">
                     <span className="absolute inset-y-0 right-0 flex items-center px-2">
                       <button
                         onClick={() =>
@@ -353,9 +353,9 @@ const HistoryPage = () => {
                         <MdAutorenew />
                       </button>
                     </span>
-                    <input
+                    <select
                       autoComplete="off"
-                      type="text"
+                      id="Work_status"
                       name="Work_status"
                       onChange={(e) =>
                         singleBoqFieldUpdate(
@@ -365,17 +365,36 @@ const HistoryPage = () => {
                         )
                       }
                       value={item.Work_status === null ? "" : item.Work_status}
-                      id="Work_status"
-                      className="w-full !p-0 !pl-2 border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm"
-                      placeholder="Type PO Number..."
-                    />
+                      className="w-[88%] !p-0 remove_arrow border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm"
+                    >
+                      <option className="!px-2 !text-gray-600" defaultValue="">
+                        Select Work Status
+                      </option>
+                      <option className="!px-2" value="Up coming">
+                        Up coming
+                      </option>
+                      <option className="!px-2" value="On-going">
+                        On-going
+                      </option>
+                      <option className="!px-2" value="Postpond">
+                        Postpond
+                      </option>
+                      <option className="!px-2" value="Pirtially Done">
+                        Pirtially Done
+                      </option>
+                      <option className="!px-2" value="Full Done">
+                        Full Done
+                      </option>
+                    </select>
                   </div>
                 </td>
                 <td className="!p-0  border-[1px] border-gray-800 text-center">
-                  <div className="relative">
+                  <div className="relative flex justify-start pl-2">
                     <span className="absolute inset-y-0 right-0 flex items-center px-2">
                       <button
-                        onClick={() => postThisData(item.id, index, "PO_value")}
+                        onClick={() =>
+                          postThisData(item.id, index, "Acknowledgement")
+                        }
                         type="button"
                         title="search"
                         className="p-1 focus:outline-none bg-green-500 rounded-md"
@@ -383,10 +402,10 @@ const HistoryPage = () => {
                         <MdAutorenew />
                       </button>
                     </span>
-                    <input
+                    <select
                       autoComplete="off"
-                      type="text"
-                      name="BOQ_ID"
+                      id="Acknowledgement"
+                      name="Acknowledgement"
                       onChange={(e) =>
                         singleBoqFieldUpdate(
                           e.target.value,
@@ -394,18 +413,42 @@ const HistoryPage = () => {
                           index
                         )
                       }
-                      value={item.PO_number === null ? "" : item.PO_number}
-                      id="BOQ_ID"
-                      className="w-full !p-0 !pl-2 border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm"
-                      placeholder="Type PO Number..."
-                    />
+                      value={
+                        item.Acknowledgement === null
+                          ? ""
+                          : item.Acknowledgement
+                      }
+                      className="w-[89%] !p-0 remove_arrow border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm"
+                    >
+                      <option className="!px-2 !text-gray-600" defaultValue="">
+                        Select Acknowledgement
+                      </option>
+                      <option className="!px-2" value="Not send Yet">
+                        Not send Yet
+                      </option>
+                      <option
+                        className="!px-2"
+                        value="Sent & Waiting for approval"
+                      >
+                        Sent & Waiting for approval
+                      </option>
+                      <option className="!px-2" value="Pirtially Done">
+                        Pirtially Done
+                      </option>
+                      <option className="!px-2" value="Approved">
+                        Approved
+                      </option>
+                    </select>
+                  
                   </div>
                 </td>
                 <td className="!p-0  border-[1px] border-gray-800 text-center">
-                  <div className="relative">
+                  <div className="relative flex justify-start pl-2">
                     <span className="absolute inset-y-0 right-0 flex items-center px-2">
                       <button
-                        onClick={() => postThisData(item.id, index, "PO_value")}
+                        onClick={() =>
+                          postThisData(item.id, index, "Receiving_status")
+                        }
                         type="button"
                         title="search"
                         className="p-1 focus:outline-none bg-green-500 rounded-md"
@@ -413,10 +456,10 @@ const HistoryPage = () => {
                         <MdAutorenew />
                       </button>
                     </span>
-                    <input
+                    <select
                       autoComplete="off"
-                      type="text"
-                      name="BOQ_ID"
+                      id="Receiving_status"
+                      name="Receiving_status"
                       onChange={(e) =>
                         singleBoqFieldUpdate(
                           e.target.value,
@@ -424,73 +467,33 @@ const HistoryPage = () => {
                           index
                         )
                       }
-                      value={item.PO_number === null ? "" : item.PO_number}
-                      id="BOQ_ID"
-                      className="w-full !p-0 !pl-2 border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm"
-                      placeholder="Type PO Number..."
-                    />
-                  </div>
-                </td>
-                <td className="!p-0  border-[1px] border-gray-800 text-center">
-                  <div className="relative">
-                    <span className="absolute inset-y-0 right-0 flex items-center px-2">
-                      <button
-                        onClick={() => postThisData(item.id, index, "PO_value")}
-                        type="button"
-                        title="search"
-                        className="p-1 focus:outline-none bg-green-500 rounded-md"
+                      value={
+                        item.Receiving_status === null
+                          ? ""
+                          : item.Receiving_status
+                      }
+                      className="w-[89%] !p-0 remove_arrow border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm"
+                    >
+                      <option className="!px-2 !text-gray-600" defaultValue="">
+                        Select Receiving status
+                      </option>
+                      <option className="!px-2" value="True">
+                        True
+                      </option>
+                      <option
+                        className="!px-2"
+                        value="False"
                       >
-                        <MdAutorenew />
-                      </button>
-                    </span>
-                    <input
-                      autoComplete="off"
-                      type="text"
-                      name="BOQ_ID"
-                      onChange={(e) =>
-                        singleBoqFieldUpdate(
-                          e.target.value,
-                          e.target.name,
-                          index
-                        )
-                      }
-                      value={item.PO_number === null ? "" : item.PO_number}
-                      id="BOQ_ID"
-                      className="w-full !p-0 !pl-2 border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm"
-                      placeholder="Type PO Number..."
-                    />
+                        False
+                      </option>
+                     
+                    </select>
+                  
                   </div>
                 </td>
-                <td className="!p-0  border-[1px] border-gray-800 text-center">
-                  <div className="relative">
-                    <span className="absolute inset-y-0 right-0 flex items-center px-2">
-                      <button
-                        onClick={() => postThisData(item.id, index, "PO_value")}
-                        type="button"
-                        title="search"
-                        className="p-1 focus:outline-none bg-green-500 rounded-md"
-                      >
-                        <MdAutorenew />
-                      </button>
-                    </span>
-                    <input
-                      autoComplete="off"
-                      type="text"
-                      name="BOQ_ID"
-                      onChange={(e) =>
-                        singleBoqFieldUpdate(
-                          e.target.value,
-                          e.target.name,
-                          index
-                        )
-                      }
-                      value={item.PO_number === null ? "" : item.PO_number}
-                      id="BOQ_ID"
-                      className="w-full !p-0 !pl-2 border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm"
-                      placeholder="Type PO Number..."
-                    />
-                  </div>
-                </td>
+
+                
+                
 
                 <td className="  border-[1px] border-gray-800 text-center">
                   <p>{item["3rd_party_office_pay"]}</p>
