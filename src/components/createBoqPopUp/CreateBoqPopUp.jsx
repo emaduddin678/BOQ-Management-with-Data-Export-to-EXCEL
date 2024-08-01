@@ -41,6 +41,7 @@ const CreateBoqPopUp = ({ handleCloseBOQ }) => {
           highlightedIndex >= 0 &&
           highlightedIndex < clientsIdWithName.length
         ) {
+          setGpClientName(clientsIdWithName[highlightedIndex]);
           console.log(clientsIdWithName[highlightedIndex]);
           getGPUserId(
             clientsIdWithName[highlightedIndex].id,
@@ -59,6 +60,12 @@ const CreateBoqPopUp = ({ handleCloseBOQ }) => {
         break;
     }
   };
+  const handleItemClick = (item) => {
+    setGpClientName(item);
+    console.log(item);
+    getGPUserId(item.id, item.email_id); // Adjust according to the structure of your data
+    setIsFocused(false);
+  };
 
   const handleOnFocus = () => {
     setIsFocused(true);
@@ -69,21 +76,14 @@ const CreateBoqPopUp = ({ handleCloseBOQ }) => {
     setChanging(false);
   };
 
-  const handleItemClick = (item) => {
-    setGpClientName(item);
-    console.log(item);
-    getGPUserId(item.id, item.email_id); // Adjust according to the structure of your data
-    setIsFocused(false);
+  const abc = () => {
+    return (
+      boq.AEXP_BOQ_Creator !== "" &&
+      boq.Project_name !== "" &&
+      boq.GP_user_id !== "" &&
+      boq.BOQ_ID !== ""
+    );
   };
-
-   const abc = () => {
-     return (
-       boq.AEXP_BOQ_Creator !== "" &&
-       boq.Project_name !== "" &&
-       boq.GP_user_id !== "" &&
-       boq.BOQ_ID !== ""
-     );
-   };
   // console.log(clientsIdWithName);
   const hanleFormSubmit = (e) => {
     e.preventDefault();
@@ -233,7 +233,9 @@ const CreateBoqPopUp = ({ handleCloseBOQ }) => {
                     autoComplete="off"
                     value={
                       gpClientName?.client_name
-                        ? gpClientName?.client_name
+                        ? isFocused
+                          ? nameForGP_user_id
+                          : gpClientName?.client_name
                         : nameForGP_user_id
                     }
                     id="client_Name"
