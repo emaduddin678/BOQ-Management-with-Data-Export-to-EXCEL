@@ -61,10 +61,10 @@ const HistoryPage = () => {
               GP USER Email
             </th>
 
-            <th className="p-3  border-[1px] border-gray-800 text-center w-36">
+            <th className="p-3  border-[1px] border-gray-800 text-center w-40">
               {removeUnderScore("Requisition_amount")}
             </th>
-            <th className="p-3  border-[1px] border-gray-800 text-center w-36">
+            <th className="p-3  border-[1px] border-gray-800 text-center w-40">
               {removeUnderScore("Received_amount")}
             </th>
 
@@ -212,20 +212,19 @@ const HistoryPage = () => {
                       }
                       id="PO_receiving_date"
                       className={`${
-                        item.PO_receiving_date === null
-                          ? ""
-                          : "!text-black"
+                        item.PO_receiving_date === null ? "" : "!text-black"
                       } w-[80%] mr-auto !p-0 !pl-2 !border-none !outline-none !focus:outline-none !ring-0 !focus:ring-0 placeholder:text-sm text-sm`}
                       // placeholder="Type  Number..."
                     />
-                    
                   </div>
                 </td>
                 <td className="!p-0  border-[1px] border-gray-800 text-center">
-                  <div className="relative">
+                  <div className="relative flex justify-start">
                     <span className="absolute inset-y-0 right-0 flex items-center px-2">
                       <button
-                        onClick={() => postThisData(item.id, index, "PO_value")}
+                        onClick={() =>
+                          postThisData(item.id, index, "PO_delivary_date")
+                        }
                         type="button"
                         title="search"
                         className="p-1 focus:outline-none bg-green-500 rounded-md"
@@ -233,10 +232,11 @@ const HistoryPage = () => {
                         <MdAutorenew />
                       </button>
                     </span>
+
                     <input
                       autoComplete="off"
-                      type="text"
-                      name="BOQ_ID"
+                      type="date"
+                      name="PO_delivary_date"
                       onChange={(e) =>
                         singleBoqFieldUpdate(
                           e.target.value,
@@ -244,13 +244,20 @@ const HistoryPage = () => {
                           index
                         )
                       }
-                      value={item.PO_number === null ? "" : item.PO_number}
-                      id="BOQ_ID"
-                      className="w-full !p-0 !pl-2 border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm"
-                      placeholder="Type PO Number..."
+                      value={
+                        item.PO_delivary_date === null
+                          ? ""
+                          : item.PO_delivary_date
+                      }
+                      id="PO_delivary_date"
+                      className={`${
+                        item.PO_delivary_date === null ? "" : "!text-black"
+                      } w-[80%] mr-auto !p-0 !pl-2 !border-none !outline-none !focus:outline-none !ring-0 !focus:ring-0 placeholder:text-sm text-sm`}
+                      // placeholder="Type  Number..."
                     />
                   </div>
                 </td>
+
                 <td className="  border-[1px] border-gray-800 text-center">
                   <p>{item.GP_user_name}</p>
                 </td>
@@ -264,7 +271,9 @@ const HistoryPage = () => {
                   <div className="relative">
                     <span className="absolute inset-y-0 right-0 flex items-center px-2">
                       <button
-                        onClick={() => postThisData(item.id, index, "PO_value")}
+                        onClick={() =>
+                          postThisData(item.id, index, "Requisition_amount")
+                        }
                         type="button"
                         title="search"
                         className="p-1 focus:outline-none bg-green-500 rounded-md"
@@ -275,7 +284,7 @@ const HistoryPage = () => {
                     <input
                       autoComplete="off"
                       type="text"
-                      name="BOQ_ID"
+                      name="Requisition_amount"
                       onChange={(e) =>
                         singleBoqFieldUpdate(
                           e.target.value,
@@ -283,10 +292,14 @@ const HistoryPage = () => {
                           index
                         )
                       }
-                      value={item.PO_number === null ? "" : item.PO_number}
-                      id="BOQ_ID"
+                      value={
+                        item.Requisition_amount === null
+                          ? ""
+                          : item.Requisition_amount
+                      }
+                      id="Requisition_amount"
                       className="w-full !p-0 !pl-2 border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm"
-                      placeholder="Type PO Number..."
+                      placeholder="Type requisition amount..."
                     />
                   </div>
                 </td>
@@ -294,7 +307,9 @@ const HistoryPage = () => {
                   <div className="relative">
                     <span className="absolute inset-y-0 right-0 flex items-center px-2">
                       <button
-                        onClick={() => postThisData(item.id, index, "PO_value")}
+                        onClick={() =>
+                          postThisData(item.id, index, "Received_amount")
+                        }
                         type="button"
                         title="search"
                         className="p-1 focus:outline-none bg-green-500 rounded-md"
@@ -305,7 +320,7 @@ const HistoryPage = () => {
                     <input
                       autoComplete="off"
                       type="text"
-                      name="BOQ_ID"
+                      name="Received_amount"
                       onChange={(e) =>
                         singleBoqFieldUpdate(
                           e.target.value,
@@ -313,10 +328,14 @@ const HistoryPage = () => {
                           index
                         )
                       }
-                      value={item.PO_number === null ? "" : item.PO_number}
-                      id="BOQ_ID"
+                      value={
+                        item.Received_amount === null
+                          ? ""
+                          : item.Received_amount
+                      }
+                      id="Received_amount"
                       className="w-full !p-0 !pl-2 border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm"
-                      placeholder="Type PO Number..."
+                      placeholder="Type Received amount..."
                     />
                   </div>
                 </td>
@@ -324,7 +343,9 @@ const HistoryPage = () => {
                   <div className="relative">
                     <span className="absolute inset-y-0 right-0 flex items-center px-2">
                       <button
-                        onClick={() => postThisData(item.id, index, "PO_value")}
+                        onClick={() =>
+                          postThisData(item.id, index, "Work_status")
+                        }
                         type="button"
                         title="search"
                         className="p-1 focus:outline-none bg-green-500 rounded-md"
@@ -335,7 +356,7 @@ const HistoryPage = () => {
                     <input
                       autoComplete="off"
                       type="text"
-                      name="BOQ_ID"
+                      name="Work_status"
                       onChange={(e) =>
                         singleBoqFieldUpdate(
                           e.target.value,
@@ -343,8 +364,8 @@ const HistoryPage = () => {
                           index
                         )
                       }
-                      value={item.PO_number === null ? "" : item.PO_number}
-                      id="BOQ_ID"
+                      value={item.Work_status === null ? "" : item.Work_status}
+                      id="Work_status"
                       className="w-full !p-0 !pl-2 border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm"
                       placeholder="Type PO Number..."
                     />
@@ -498,10 +519,7 @@ const HistoryPage = () => {
             ))
           ) : (
             <tr>
-              <td
-                colSpan="6"
-                className="p-3  border-[1px]   text-center bg-gray-700"
-              >
+              <td colSpan="6" className="p-3  border-[1px]   text-center ">
                 No data available
               </td>
             </tr>
