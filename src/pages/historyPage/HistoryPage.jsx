@@ -30,7 +30,7 @@ const HistoryPage = () => {
   }, []);
 
   return (
-    <div className="w-full overflow-x-auto  mt-20">
+    <div className=" w-full overflow-x-auto  mt-20">
       <table className="text-xs w-[2400px] !table-fixed">
         <thead className="">
           <tr className="text-left border-[1px] bg-teal-600">
@@ -108,7 +108,7 @@ const HistoryPage = () => {
             allBoq.map((item, index) => (
               <tr
                 key={item.id}
-                className="border-[1px] border-opacity-20 border-gray-700 "
+                className="border-[1px] border-opacity-20 border-gray-700 odd:bg-white even:bg-slate-200"
               >
                 {/* {console.log(item)} */}
                 {/* {console.log(item)} */}
@@ -151,7 +151,11 @@ const HistoryPage = () => {
                       }
                       value={item.PO_number === null ? "" : item.PO_number}
                       id="PO_number"
-                      className="w-full !p-0 !pl-2 remove_arrow border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm"
+                      className={`${
+                        index % 2 === 1
+                          ? " bg-slate-200 border-[1px] border-gray-800 "
+                          : ""
+                      }  w-full !p-0 !px-2 remove_arrow border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm`}
                       placeholder="Type PO Number..."
                     />
                   </div>
@@ -181,7 +185,9 @@ const HistoryPage = () => {
                       }
                       value={item.PO_value === null ? "" : item.PO_value}
                       id="PO_value"
-                      className="w-full !p-0 !pl-2 remove_arrow border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm"
+                      className={`${
+                        index % 2 === 1 ? "bg-slate-200" : ""
+                      }  w-full !p-0 !pl-2 remove_arrow border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm `}
                       placeholder="Type PO value..."
                     />
                   </div>
@@ -220,6 +226,8 @@ const HistoryPage = () => {
                       id="PO_receiving_date"
                       className={`${
                         item.PO_receiving_date === null ? "" : "!text-black"
+                      } ${
+                        index % 2 === 1 ? "bg-slate-200" : ""
                       } w-[80%] mr-auto !p-0 !pl-2 !border-none !outline-none !focus:outline-none !ring-0 !focus:ring-0 placeholder:text-sm text-sm`}
                       // placeholder="Type  Number..."
                     />
@@ -259,6 +267,8 @@ const HistoryPage = () => {
                       id="PO_delivary_date"
                       className={`${
                         item.PO_delivary_date === null ? "" : "!text-black"
+                      } ${
+                        index % 2 === 1 ? "bg-slate-200" : ""
                       } w-[80%] mr-auto !p-0 !pl-2 !border-none !outline-none !focus:outline-none !ring-0 !focus:ring-0 placeholder:text-sm text-sm`}
                       // placeholder="Type  Number..."
                     />
@@ -305,7 +315,9 @@ const HistoryPage = () => {
                           : item.Requisition_amount
                       }
                       id="Requisition_amount"
-                      className="w-full !p-0 !pl-2 remove_arrow border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm"
+                      className={`${index % 2 === 1 ? "bg-slate-200" : ""} ${
+                        index % 2 === 1 ? "bg-slate-200" : ""
+                      }   w-full !p-0 !pl-2 remove_arrow border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm `}
                       placeholder="Type requisition amount..."
                     />
                   </div>
@@ -341,7 +353,9 @@ const HistoryPage = () => {
                           : item.Received_amount
                       }
                       id="Received_amount"
-                      className="w-full !p-0 !pl-2 remove_arrow border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm"
+                      className={`${index % 2 === 1 ? "bg-slate-200" : ""} ${
+                        index % 2 === 1 ? "bg-slate-200" : ""
+                      }  w-full !p-0 !pl-2 remove_arrow border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm `}
                       placeholder="Type Received amount..."
                     />
                   </div>
@@ -372,7 +386,9 @@ const HistoryPage = () => {
                         )
                       }
                       value={item.Work_status === null ? "" : item.Work_status}
-                      className="w-[88%] !p-0 remove_arrow border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm"
+                      className={`${
+                        index % 2 === 1 ? "bg-slate-200" : ""
+                      }  w-[88%] !p-0 remove_arrow border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm`}
                     >
                       <option className="!px-2 !text-gray-600" defaultValue="">
                         Select Work Status
@@ -425,7 +441,9 @@ const HistoryPage = () => {
                           ? ""
                           : item.Acknowledgement
                       }
-                      className="w-[89%] !p-0 remove_arrow border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm"
+                      className={`${
+                        index % 2 === 1 ? "bg-slate-200" : ""
+                      }  w-[89%] !p-0 remove_arrow border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm`}
                     >
                       <option className="!px-2 !text-gray-600" defaultValue="">
                         Select Acknowledgement
@@ -479,7 +497,9 @@ const HistoryPage = () => {
                           ? ""
                           : item.Receiving_status
                       }
-                      className="w-[89%] !p-0 remove_arrow border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm"
+                      className={`${
+                        index % 2 === 1 ? "bg-slate-200" : ""
+                      }  w-[89%] !p-0 remove_arrow border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm`}
                     >
                       <option className="!px-2 !text-gray-600" defaultValue="">
                         Select Receiving status
@@ -518,7 +538,9 @@ const HistoryPage = () => {
                         )
                       }
                       value={item.OTC === null ? "" : item.OTC}
-                      className="w-[89%] !p-0 remove_arrow border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm"
+                      className={`${
+                        index % 2 === 1 ? "bg-slate-200" : ""
+                      }  w-[89%] !p-0 remove_arrow border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm`}
                     >
                       <option className="!px-2 !text-gray-600" defaultValue="">
                         Select OTC
@@ -566,7 +588,9 @@ const HistoryPage = () => {
                           ? ""
                           : item.Internal_bill_settlement
                       }
-                      className="w-[92%] !p-0 remove_arrow border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm"
+                      className={`${
+                        index % 2 === 1 ? "bg-slate-200" : ""
+                      }  w-[92%] !p-0 remove_arrow border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm`}
                     >
                       <option className="!px-2 !text-gray-600" defaultValue="">
                         Select Internal_bill_settlement
@@ -613,7 +637,9 @@ const HistoryPage = () => {
                           ? ""
                           : item["3rd_party_office_pay"]
                       }
-                      className="w-[89%] !p-0 remove_arrow border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm"
+                      className={`${
+                        index % 2 === 1 ? "bg-slate-200" : ""
+                      }  w-[89%] !p-0 remove_arrow border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm`}
                     >
                       <option className="!px-2 !text-gray-600" defaultValue="">
                         Select 3rd party office pay
@@ -633,15 +659,19 @@ const HistoryPage = () => {
 
                 <td className="  border-[1px] border-gray-800 text-center">
                   {/* <p>{formateDate(item.created_at).split("UTC")[0]}</p> */}
-                  <p class="text-sm font-semibold text-gray-800 bg-white shadow-md rounded-md">
-                    <span class="text-blue-500">
+                  <p
+                    className={`${
+                      index % 2 === 1 ? "bg-slate-200" : ""
+                    }  text-sm font-semibold text-gray-800 bg-white shadow-md rounded-md`}
+                  >
+                    <span className="text-blue-500">
                       {
                         formateDate(item.created_at)
                           .split("UTC")[0]
                           .split(",")[0]
                       }
                     </span>
-                    <span class="text-red-500 text-sm">
+                    <span className="text-red-500 text-sm">
                       {
                         formateDate(item.created_at)
                           .split("UTC")[0]
