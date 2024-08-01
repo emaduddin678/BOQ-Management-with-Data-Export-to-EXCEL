@@ -8,12 +8,14 @@ import { useHistoryContext } from "../../context/HistoryContext.jsx";
 
 const HistoryPage = () => {
   const { boqDisable } = useBoqContext();
-  const { allBoq, fetchBoq } = useHistoryContext();
+  const { allBoq, fetchBoq, singleBoqFieldUpdate, postThisData } =
+    useHistoryContext();
 
   useEffect(() => {
     fetchBoq();
     boqDisable();
   }, []);
+
   return (
     <div className="w-full overflow-x-auto  mt-20">
       <table className="text-xs w-[2400px] !table-fixed">
@@ -92,9 +94,10 @@ const HistoryPage = () => {
           {allBoq?.length > 0 ? (
             allBoq.map((item, index) => (
               <tr
-                key={item.id}
-                className="border-[1px] border-opacity-20 border-gray-700 "
+              key={item.id}
+              className="border-[1px] border-opacity-20 border-gray-700 "
               >
+                {console.log(item)}
                 {/* {console.log(item)} */}
                 <td className="  border-[1px] border-gray-800 text-center">
                   <p>{index + 1}</p>
@@ -112,7 +115,37 @@ const HistoryPage = () => {
                   <div className="relative">
                     <span className="absolute inset-y-0 right-0 flex items-center px-2">
                       <button
-                        // onClick={generateRandomId}
+                        onClick={() =>
+                          postThisData(item.id, index, "PO_number")
+                        }
+                        type="button"
+                        title="search"
+                        className="p-1 focus:outline-none bg-green-500 rounded-md"
+                      >
+                        <MdAutorenew />
+                      </button>
+                    </span>
+                    <input
+                      autoComplete="off"
+                      type="number"
+                      name="PO_number"
+                      onChange={(e) =>
+                        singleBoqFieldUpdate(e.target.value, index)
+                      }
+                      value={item.PO_number === null ? "" : item.PO_number}
+                      id="PO_number"
+                      className="w-full !p-0 !pl-2 border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm"
+                      placeholder="Type PO Number..."
+                    />
+                  </div>
+                </td>
+                <td className="!p-0  border-[1px] border-gray-800 text-center">
+                  <div className="relative">
+                    <span className="absolute inset-y-0 right-0 flex items-center px-2">
+                      <button
+                        onClick={() =>
+                          postThisData(item.id, index, "PO_number")
+                        }
                         type="button"
                         title="search"
                         className="p-1 focus:outline-none bg-green-500 rounded-md"
@@ -129,7 +162,6 @@ const HistoryPage = () => {
                       id="BOQ_ID"
                       className="w-full !p-0 !pl-2 border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm"
                       placeholder="Type PO Number..."
-                      required
                     />
                   </div>
                 </td>
@@ -154,7 +186,6 @@ const HistoryPage = () => {
                       id="BOQ_ID"
                       className="w-full !p-0 !pl-2 border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm"
                       placeholder="Type PO Number..."
-                      required
                     />
                   </div>
                 </td>
@@ -179,32 +210,6 @@ const HistoryPage = () => {
                       id="BOQ_ID"
                       className="w-full !p-0 !pl-2 border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm"
                       placeholder="Type PO Number..."
-                      required
-                    />
-                  </div>
-                </td>
-                <td className="!p-0  border-[1px] border-gray-800 text-center">
-                  <div className="relative">
-                    <span className="absolute inset-y-0 right-0 flex items-center px-2">
-                      <button
-                        // onClick={generateRandomId}
-                        type="button"
-                        title="search"
-                        className="p-1 focus:outline-none bg-green-500 rounded-md"
-                      >
-                        <MdAutorenew />
-                      </button>
-                    </span>
-                    <input
-                      autoComplete="off"
-                      type="text"
-                      name="BOQ_ID"
-                      // onChange={handleFormInput}
-                      // value={boq.BOQ_ID}
-                      id="BOQ_ID"
-                      className="w-full !p-0 !pl-2 border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm"
-                      placeholder="Type PO Number..."
-                      required
                     />
                   </div>
                 </td>
@@ -238,7 +243,6 @@ const HistoryPage = () => {
                       id="BOQ_ID"
                       className="w-full !p-0 !pl-2 border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm"
                       placeholder="Type PO Number..."
-                      required
                     />
                   </div>
                 </td>
@@ -263,7 +267,6 @@ const HistoryPage = () => {
                       id="BOQ_ID"
                       className="w-full !p-0 !pl-2 border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm"
                       placeholder="Type PO Number..."
-                      required
                     />
                   </div>
                 </td>
@@ -288,7 +291,6 @@ const HistoryPage = () => {
                       id="BOQ_ID"
                       className="w-full !p-0 !pl-2 border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm"
                       placeholder="Type PO Number..."
-                      required
                     />
                   </div>
                 </td>
@@ -313,7 +315,6 @@ const HistoryPage = () => {
                       id="BOQ_ID"
                       className="w-full !p-0 !pl-2 border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm"
                       placeholder="Type PO Number..."
-                      required
                     />
                   </div>
                 </td>
@@ -338,7 +339,6 @@ const HistoryPage = () => {
                       id="BOQ_ID"
                       className="w-full !p-0 !pl-2 border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm"
                       placeholder="Type PO Number..."
-                      required
                     />
                   </div>
                 </td>
@@ -363,7 +363,6 @@ const HistoryPage = () => {
                       id="BOQ_ID"
                       className="w-full !p-0 !pl-2 border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm"
                       placeholder="Type PO Number..."
-                      required
                     />
                   </div>
                 </td>
@@ -388,7 +387,6 @@ const HistoryPage = () => {
                       id="BOQ_ID"
                       className="w-full !p-0 !pl-2 border-none outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-sm text-sm"
                       placeholder="Type PO Number..."
-                      required
                     />
                   </div>
                 </td>

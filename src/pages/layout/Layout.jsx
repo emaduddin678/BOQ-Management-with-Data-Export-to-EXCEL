@@ -17,6 +17,7 @@ import { MdOutlineManageAccounts } from "react-icons/md";
 import { HiLogout } from "react-icons/hi";
 import { FaRegMoon } from "react-icons/fa";
 import { FiSun } from "react-icons/fi";
+import { GrUserAdmin } from "react-icons/gr";
 const Layout = () => {
   const navigate = useNavigate();
   const { logout } = useAuth();
@@ -81,6 +82,8 @@ const Layout = () => {
       setNavName("/dashboard/history");
     } else if (window.location.href.includes("/dashboard/client-user")) {
       setNavName("/dashboard/client-user");
+    } else if (window.location.href.includes("/dashboard/admin")) {
+      setNavName("/dashboard/admin");
     } else {
       setNavName("/dashboard");
     }
@@ -150,7 +153,7 @@ const Layout = () => {
                 <span
                   className={`${
                     navName === "/dashboard/createboq" ? "!text-white" : " "
-                  } link-name !font-semibold !ml-[14px]`}
+                  } link-name !font-semibold !ml-[12px]`}
                 >
                   Create BOQ
                 </span>
@@ -175,14 +178,14 @@ const Layout = () => {
                   onClick={() => navigate("history")}
                   className={`${
                     navName === "/dashboard/history" ? "!text-white" : " "
-                  } link-name !font-semibold !ml-[14px] !rounded-md`}
+                  } link-name !font-semibold !ml-[11px] !rounded-md`}
                 >
                   BOQ History
                 </span>
               </div>
             </li>
             <li>
-              {console.log(navName)}
+              {/* {console.log(navName)} */}
               <div
                 style={{ cursor: "pointer" }}
                 onClick={() => navigate("client-user")}
@@ -200,9 +203,34 @@ const Layout = () => {
                 <button
                   className={`${
                     navName === "/dashboard/client-user" ? "!text-white" : " "
-                  } link-name !font-semibold !ml-[10px] !rounded-md`}
+                  } link-name !font-semibold !ml-[6px] !rounded-md`}
                 >
                   Client Management
+                </button>
+              </div>
+            </li>
+            <li>
+              {/* {console.log(navName)} */}
+              <div
+                style={{ cursor: "pointer" }}
+                onClick={() => navigate("admin")}
+                className={` pl-2 !rounded-md ${
+                  navName === "/dashboard/admin" ? "!bg-teal-600" : ""
+                }`}
+              >
+                <GrUserAdmin
+                  className={`${
+                    navName === "/dashboard/admin"
+                      ? "text-white"
+                      : "text-gray-500"
+                  }  text-2xl `}
+                />
+                <button
+                  className={`${
+                    navName === "/dashboard/admin" ? "!text-white" : " "
+                  } link-name !font-semibold !ml-[12px] !rounded-md`}
+                >
+                  Admin Management
                 </button>
               </div>
             </li>

@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState } from "react";
 import axios from "axios";
+import getFormData from "../utility/getFormData";
 
 const HistoryContext = createContext();
 
@@ -11,16 +12,45 @@ const HistoryContextProvider = ({ children }) => {
   const [allBoq, setAllBoq] = useState([]);
 
   const fetchBoq = () => {
+    
     axios
       .get("/boq/all-boq")
       .then((res) => {
-        console.log(res);
+
         setAllBoq(res.data.data);
+        console.log("Hello")
       })
       .catch((err) => console.log(err));
   };
 
-  const value = { allBoq, fetchBoq };
+  const singleBoqFieldUpdate = (newPONumber, index) => {
+    setAllBoq((prevAllBoq) =>
+      prevAllBoq.map((boq, i) =>
+        i === index ? { ...boq, PO_number: newPONumber } : boq
+      )
+    );
+  };
+
+  const postThisData = (id, index, field) => {
+    // console.log(id, index, field);
+    // console.log(field, allBoq[index][field]);
+    // console.log(allBoq[index]);
+    const formData = new FormData();
+    formData.append(field, allBoq[index][field]);
+    // console.log(field, allBoq[index][field]);
+
+    axios
+      .post(`boq/update/${id}`, formData)
+      .then((res) => {
+        console.log(res);
+        fetchBoq();
+      })
+      .catch((err) => {
+        throw err;
+      });
+  };
+
+  const value = { allBoq, fetchBoq, singleBoqFieldUpdate, postThisData };
   return (
     <HistoryContext.Provider value={value}>{children}</HistoryContext.Provider>
   );

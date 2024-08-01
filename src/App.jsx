@@ -14,6 +14,7 @@ import SearchInput from "./components/SearchInput/SearchInput";
 import ErrorPage from "./pages/error/ErrorPage";
 import PrivateRoute from "./components/ProtectedRoute/PrivateRoute";
 import ClientManagement from "./components/clientManagement/ClientManagement";
+import Admin from "./pages/admin/Admin";
 
 function App() {
   return (
@@ -48,6 +49,15 @@ function App() {
                 // </PrivateRoute>
               }
             />
+            <Route
+              path="admin"
+              element={
+                // <PrivateRoute>
+                <Admin />
+                // </PrivateRoute>
+              }
+            />
+            <Route path="*" element={<ErrorPage />} />
           </Route>
         </Route>
         <Route path="*" element={<ErrorPage />} />
