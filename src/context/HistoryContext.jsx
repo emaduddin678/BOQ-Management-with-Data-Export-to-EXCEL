@@ -12,22 +12,18 @@ const HistoryContextProvider = ({ children }) => {
   const [allBoq, setAllBoq] = useState([]);
 
   const fetchBoq = () => {
-    
     axios
       .get("/boq/all-boq")
       .then((res) => {
-
         setAllBoq(res.data.data);
-        console.log("Hello")
+        console.log("Hello");
       })
       .catch((err) => console.log(err));
   };
 
-  const singleBoqFieldUpdate = (newPONumber, index) => {
+  const singleBoqFieldUpdate = (value, fName, index) => {
     setAllBoq((prevAllBoq) =>
-      prevAllBoq.map((boq, i) =>
-        i === index ? { ...boq, PO_number: newPONumber } : boq
-      )
+      prevAllBoq.map((boq, i) => (i === index ? { ...boq, [fName]: value } : boq))
     );
   };
 

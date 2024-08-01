@@ -19,7 +19,7 @@ import { FaRegMoon } from "react-icons/fa";
 import { FiSun } from "react-icons/fi";
 import { GrUserAdmin } from "react-icons/gr";
 const Layout = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate(); 
   const { logout } = useAuth();
   const { createBoqModal, handleBoqPopup, handleCloseBOQ } =
     useAllModalContext();

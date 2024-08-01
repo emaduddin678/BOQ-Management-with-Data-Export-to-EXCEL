@@ -30,7 +30,9 @@ const CreateClientPopUp = () => {
     return re.test(email);
   };
   console.log(validateEmail(clientInfo.email_id));
+
   const validateProjectInfo = () => {
+  // console.log("Hello")
     const { client_name, department, circle, contact_number, email_id } =
       clientInfo;
     if (
@@ -38,9 +40,10 @@ const CreateClientPopUp = () => {
       department === "" ||
       contact_number === "" ||
       email_id === "" ||
-      validateEmail(email_id)
+      !validateEmail(email_id)
     ) {
-      // console.log("helo");
+      console.log("Hello")
+      console.log(validateEmail(email_id));
       if (!validateEmail(email_id)) {
         setEmailError(true);
       }
@@ -58,13 +61,13 @@ const CreateClientPopUp = () => {
       console.log(clientInfo.id);
       if (clientInfo.id) {
         Swal.fire({
-          title: "Do you want to create this user?",
-          text: "This user can create Project!",
+          title: "Do you want to update this user?",
+          text: "This user can update Project!",
           icon: "question",
           showCancelButton: true,
           cancelButtonColor: "#d33",
           confirmButtonColor: "#3085d6",
-          confirmButtonText: "Yes, create user!",
+          confirmButtonText: "Yes, update user!",
         }).then((result) => {
           if (result.isConfirmed) {
             axios

@@ -203,7 +203,7 @@ const SearchInput = () => {
             autoComplete="off"
             className="w-full rounded-md focus:ring focus:ring-opacity-75  "
           />
-          {!isFocused && data && (
+          {isFocused && data && (
             <ul className="absolute top-32 left-4 z-50 bg-white border border-gray-300 w-1/2 rounded-md mt-1">
               {data.map((item, index) => (
                 <li
