@@ -1,18 +1,29 @@
-import React, { createContext, useContext } from "react";
+import React, { createContext, useContext, useState } from "react";
+import axios from "axios";
 
-const historyContextProvider = createContext();
+const HistoryContext = createContext();
 
 export const useHistoryContext = () => {
-  useContext(historyContextProvider);
+  return useContext(HistoryContext);
 };
 
-const HistoryContext = ({ children }) => {
-  const value = { a: 5 };
+const HistoryContextProvider = ({ children }) => {
+  const [allBoq, setAllBoq] = useState([]);
+
+  const fetchBoq = () => {
+    axios
+      .get("/boq/all-boq")
+      .then((res) => {
+        console.log(res);
+        setAllBoq(res.data.data);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const value = { allBoq, fetchBoq };
   return (
-    <historyContextProvider.Provider value={value}>
-      {children}
-    </historyContextProvider.Provider>
+    <HistoryContext.Provider value={value}>{children}</HistoryContext.Provider>
   );
 };
 
-export default HistoryContext;
+export default HistoryContextProvider;

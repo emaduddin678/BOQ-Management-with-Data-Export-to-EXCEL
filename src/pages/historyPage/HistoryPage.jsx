@@ -4,17 +4,21 @@ import formateDate from "../../utility/getFormattedDate";
 import { MdAutorenew, MdDeleteForever } from "react-icons/md";
 import { GrDocumentUpdate } from "react-icons/gr";
 import removeUnderScore from "../../utility/removeUderScore";
+import { useHistoryContext } from "../../context/HistoryContext.jsx";
 
 const HistoryPage = () => {
-  const { allBoq, boqDisable } = useBoqContext();
+  const { boqDisable } = useBoqContext();
+  const { allBoq, fetchBoq } = useHistoryContext();
+
   useEffect(() => {
+    fetchBoq();
     boqDisable();
   }, []);
   return (
     <div className="w-full overflow-x-auto  mt-20">
       <table className="text-xs w-[2400px] !table-fixed">
         <thead className="">
-          <tr className="text-left border-[1px] bg-[#23c087]">
+          <tr className="text-left border-[1px] bg-teal-600">
             <th className="p-3  border-[1px] border-gray-800 text-center w-16">
               SL
             </th>
@@ -24,7 +28,7 @@ const HistoryPage = () => {
             <th className="p-3  border-[1px] border-gray-800 text-center bg-yellow-400 w-40">
               {removeUnderScore("Project_name")}
             </th>
-            <th className="p-3  border-[1px] border-gray-800 text-center w-28 bg-yellow-400">
+            <th className="p-3  border-[1px] border-gray-800 text-center w-36 bg-yellow-400">
               BOQ ID
             </th>
             <th className="p-3  border-[1px] border-gray-800 text-center w-40">
@@ -39,7 +43,7 @@ const HistoryPage = () => {
             <th className="p-3  border-[1px] border-gray-800 text-center w-40">
               PO Delivery Date
             </th>
-            <th className="p-3  border-[1px] border-gray-800 text-center w-28 bg-yellow-400">
+            <th className="p-3  border-[1px] border-gray-800 text-center w-36 bg-yellow-400">
               GP User Name
             </th>
             <th className="p-3  border-[1px] border-gray-800 text-center w-32 bg-yellow-400">
@@ -49,30 +53,30 @@ const HistoryPage = () => {
               GP USER Email
             </th>
 
-            <th className="p-3  border-[1px] border-gray-800 text-center w-28">
+            <th className="p-3  border-[1px] border-gray-800 text-center w-36">
               {removeUnderScore("Requisition_amount")}
             </th>
-            <th className="p-3  border-[1px] border-gray-800 text-center w-28">
+            <th className="p-3  border-[1px] border-gray-800 text-center w-36">
               {removeUnderScore("Received_amount")}
             </th>
 
-            <th className="p-3  border-[1px] border-gray-800 text-center w-28">
+            <th className="p-3  border-[1px] border-gray-800 text-center w-36">
               {removeUnderScore("Work_status")}
             </th>
 
             <th className="p-3  border-[1px] border-gray-800 text-center w-36">
               {removeUnderScore("Acknowledgement")}
             </th>
-            <th className="p-3  border-[1px] border-gray-800 text-center w-28">
+            <th className="p-3  border-[1px] border-gray-800 text-center w-36">
               {removeUnderScore("Receiving_status")}
             </th>
-            <th className="p-3  border-[1px] border-gray-800 text-center w-28">
+            <th className="p-3  border-[1px] border-gray-800 text-center w-36">
               {removeUnderScore("OTC")}
             </th>
-            <th className="p-3  border-[1px] border-gray-800 text-center w-28">
+            <th className="p-3  border-[1px] border-gray-800 text-center w-36">
               {removeUnderScore("Internal_bill_settlement")}
             </th>
-            <th className="p-3  border-[1px] border-gray-800 text-center w-28">
+            <th className="p-3  border-[1px] border-gray-800 text-center w-36">
               {removeUnderScore("3rd_party_office_pay")}
             </th>
 
@@ -85,7 +89,7 @@ const HistoryPage = () => {
           </tr>
         </thead>
         <tbody>
-          {allBoq.length > 0 ? (
+          {allBoq?.length > 0 ? (
             allBoq.map((item, index) => (
               <tr
                 key={item.id}
@@ -105,7 +109,6 @@ const HistoryPage = () => {
                   <p>{item.BOQ_ID}</p>
                 </td>
                 <td className="!p-0  border-b-[1px] border-gray-800 text-center">
-                  
                   <div className="relative">
                     <span className="absolute inset-y-0 right-0 flex items-center px-2">
                       <button
@@ -131,7 +134,7 @@ const HistoryPage = () => {
                   </div>
                 </td>
                 <td className="!p-0  border-[1px] border-gray-800 text-center">
-                   <div className="relative">
+                  <div className="relative">
                     <span className="absolute inset-y-0 right-0 flex items-center px-2">
                       <button
                         // onClick={generateRandomId}
@@ -156,7 +159,7 @@ const HistoryPage = () => {
                   </div>
                 </td>
                 <td className="!p-0  border-[1px] border-gray-800 text-center">
-                   <div className="relative">
+                  <div className="relative">
                     <span className="absolute inset-y-0 right-0 flex items-center px-2">
                       <button
                         // onClick={generateRandomId}
@@ -181,7 +184,7 @@ const HistoryPage = () => {
                   </div>
                 </td>
                 <td className="!p-0  border-[1px] border-gray-800 text-center">
-                   <div className="relative">
+                  <div className="relative">
                     <span className="absolute inset-y-0 right-0 flex items-center px-2">
                       <button
                         // onClick={generateRandomId}
@@ -215,7 +218,7 @@ const HistoryPage = () => {
                   <p>{item.GP_user_mail_id}</p>
                 </td>
                 <td className="!p-0  border-[1px] border-gray-800 text-center">
-                   <div className="relative">
+                  <div className="relative">
                     <span className="absolute inset-y-0 right-0 flex items-center px-2">
                       <button
                         // onClick={generateRandomId}
@@ -240,7 +243,7 @@ const HistoryPage = () => {
                   </div>
                 </td>
                 <td className="!p-0  border-[1px] border-gray-800 text-center">
-                   <div className="relative">
+                  <div className="relative">
                     <span className="absolute inset-y-0 right-0 flex items-center px-2">
                       <button
                         // onClick={generateRandomId}
@@ -265,7 +268,7 @@ const HistoryPage = () => {
                   </div>
                 </td>
                 <td className="!p-0  border-[1px] border-gray-800 text-center">
-                   <div className="relative">
+                  <div className="relative">
                     <span className="absolute inset-y-0 right-0 flex items-center px-2">
                       <button
                         // onClick={generateRandomId}
@@ -290,7 +293,7 @@ const HistoryPage = () => {
                   </div>
                 </td>
                 <td className="!p-0  border-[1px] border-gray-800 text-center">
-                   <div className="relative">
+                  <div className="relative">
                     <span className="absolute inset-y-0 right-0 flex items-center px-2">
                       <button
                         // onClick={generateRandomId}
@@ -315,7 +318,7 @@ const HistoryPage = () => {
                   </div>
                 </td>
                 <td className="!p-0  border-[1px] border-gray-800 text-center">
-                   <div className="relative">
+                  <div className="relative">
                     <span className="absolute inset-y-0 right-0 flex items-center px-2">
                       <button
                         // onClick={generateRandomId}
@@ -340,7 +343,7 @@ const HistoryPage = () => {
                   </div>
                 </td>
                 <td className="!p-0  border-[1px] border-gray-800 text-center">
-                   <div className="relative">
+                  <div className="relative">
                     <span className="absolute inset-y-0 right-0 flex items-center px-2">
                       <button
                         // onClick={generateRandomId}
@@ -365,7 +368,7 @@ const HistoryPage = () => {
                   </div>
                 </td>
                 <td className="!p-0  border-[1px] border-gray-800 text-center">
-                   <div className="relative">
+                  <div className="relative">
                     <span className="absolute inset-y-0 right-0 flex items-center px-2">
                       <button
                         // onClick={generateRandomId}
