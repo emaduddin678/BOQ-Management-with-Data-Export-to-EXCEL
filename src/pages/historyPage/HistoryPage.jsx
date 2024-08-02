@@ -12,9 +12,13 @@ import removeUnderScore from "../../utility/removeUderScore";
 import { useHistoryContext } from "../../context/HistoryContext.jsx";
 import DatePicker, { CalendarContainer } from "react-datepicker";
 import { AiOutlineDelete } from "react-icons/ai";
+import {  useNavigate } from "react-router-dom";
+
 
 const HistoryPage = () => {
-  const { boqDisable } = useBoqContext();
+ const navigate = useNavigate()
+
+  const { boqDisable, updateBoqFromHistoryPage } = useBoqContext();
   const [startDate, setStartDate] = useState(new Date());
   const {
     allBoq,
@@ -28,6 +32,12 @@ const HistoryPage = () => {
     fetchBoq();
     boqDisable();
   }, []);
+
+  const handleEditOption = (item) => {
+    if(updateBoqFromHistoryPage(item)){
+      navigate("/dashboard/createboq")
+    }
+  };
 
   return (
     <div className=" w-full overflow-x-auto  mt-20">
@@ -661,8 +671,8 @@ const HistoryPage = () => {
                   {/* <p>{formateDate(item.created_at).split("UTC")[0]}</p> */}
                   <p
                     className={`${
-                      index % 2 === 1 ? "bg-slate-200" : ""
-                    }  text-sm font-semibold text-gray-800 bg-white shadow-md rounded-md`}
+                      index % 2 === 1 ? "bg-slate-200" : "bg-white"
+                    }  text-sm font-semibold text-gray-800  shadow-md `}
                   >
                     <span className="text-blue-500">
                       {
@@ -684,7 +694,7 @@ const HistoryPage = () => {
                 <td className="    border-b-[1px] border-gray-800  text-center h-full">
                   <div className="flex  justify-center items-center gap-4">
                     <span
-                      // onClick={() => handleOpenUpdateClient(item)}
+                      onClick={() => handleEditOption(item)}
                       className="px-4 py-1 font-semibold rounded-md bg-violet-400 text-gray-900"
                     >
                       <MdOutlineEditNote className="text-white text-xl" />

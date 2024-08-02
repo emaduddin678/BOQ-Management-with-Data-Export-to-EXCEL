@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+// import {  useNavigate } from "react-router-dom";
 import getFormData from "../utility/getFormData";
 import Swal from "sweetalert2";
 import { useAllModalContext } from "./AllModalContext";
@@ -124,23 +124,23 @@ const BoqContextProvider = ({ children }) => {
       BOQ: allProduct,
     }));
   }, [allProduct]);
-  
+
   // console.log(boq);
 
   const saveTableDataToDatabase = () => {
-    console.log(boq);
-    // if (
-    //   boq.AEXP_BOQ_Creator !== "" &&
-    //   boq.Project_name !== "" &&
-    //   boq.GP_user_id !== "" &&
-    //   boq.BOQ.length !== 0 &&
-    //   boq.BOQ_ID !== ""
-    // ) {
-    //   axios
-    //     .post("/boq/create", getFormData(boq, true))
-    //     .then((res) => console.log(res.data.data.BOQ))
-    //     .catch((err) => console.log(err));
-    // }
+    // console.log(boq);
+    if (
+      boq.AEXP_BOQ_Creator !== "" &&
+      boq.Project_name !== "" &&
+      boq.GP_user_id !== "" &&
+      boq.BOQ.length !== 0 &&
+      boq.BOQ_ID !== ""
+    ) {
+      axios
+        .post("/boq/create", getFormData(boq, true))
+        .then((res) => console.log(res.data.data.BOQ))
+        .catch((err) => console.log(err));
+    }
   };
 
   const fetchBoq = () => {
@@ -156,6 +156,26 @@ const BoqContextProvider = ({ children }) => {
     } else {
       setCreateBoqIsDisabled(false);
     }
+  };
+
+  const updateBoqFromHistoryPage = (item) => {
+    const oldBoq = JSON.parse(item.BOQ);
+    console.log(item.BOQ);
+
+    console.log(oldBoq);
+    console.log(JSON.parse(oldBoq));
+    console.log(typeof oldBoq);
+    setBoq((prev) => ({
+      ...prev,
+      ...item,
+      BOQ: JSON.parse(oldBoq),
+    }));
+
+    return true;
+    // console.log({
+    //   ...item,
+    //   BOQ: JSON.parse(oldBoq),
+    // });
   };
 
   const value = {
@@ -175,6 +195,7 @@ const BoqContextProvider = ({ children }) => {
     createBoqIsDisabled,
     boqDisable,
     saveTableDataToDatabase,
+    updateBoqFromHistoryPage,
   };
   return <BoqContext.Provider value={value}>{children}</BoqContext.Provider>;
 };
