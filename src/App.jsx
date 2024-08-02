@@ -23,38 +23,44 @@ function App() {
         <Route path="/">
           <Route index element={<Login />} />
           <Route path="/dashboard" element={<Layout />}>
-            <Route index element={<DashBoard />} />
+            <Route
+              index
+              element={
+                <PrivateRoute>
+                  <DashBoard />
+                </PrivateRoute>
+              }
+            />
             <Route
               path="client-user"
               element={
-                // <PrivateRoute>
-
-                <ClientManagement />
-                // </PrivateRoute>
+                <PrivateRoute>
+                  <ClientManagement />
+                </PrivateRoute>
               }
             />
             <Route
               path="createboq"
               element={
-                // <PrivateRoute>
-                <SearchInput />
-                // </PrivateRoute>
+                <PrivateRoute>
+                  <SearchInput />
+                </PrivateRoute>
               }
             />
             <Route
               path="history"
               element={
-                // <PrivateRoute>
-                <HistoryPage />
-                // </PrivateRoute>
+                <PrivateRoute>
+                  <HistoryPage />
+                </PrivateRoute>
               }
             />
             <Route
               path="admin"
               element={
-                // <PrivateRoute>
-                <Admin />
-                // </PrivateRoute>
+                <PrivateRoute>
+                  <Admin />
+                </PrivateRoute>
               }
             />
             <Route path="*" element={<ErrorPage />} />

@@ -24,7 +24,7 @@ const Login = () => {
     e.preventDefault();
 
     const result = await login(userInfo);
-    console.log(currentUser, result);
+    // console.log(currentUser, result);
 
     if (result) {
       console.log("Login success!");

@@ -14,10 +14,10 @@ const HistoryContextProvider = ({ children }) => {
 
   const fetchBoq = () => {
     axios
-      .get("/boq/all-boq")
+      .get("/boq/all-boqa")
       .then((res) => {
         setAllBoq(res.data.data);
-        console.log("Hello");
+        // console.log("Hello");
       })
       .catch((err) => console.log(err));
   };

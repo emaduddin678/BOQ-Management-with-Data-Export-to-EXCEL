@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { redirect } from "react-router-dom";
 import "./index.css";
 import App from "./App.jsx";
 import axios from "axios";
@@ -10,7 +9,7 @@ import {
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, redirect } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext.jsx";
 import ClientContextProvider from "./context/ClientContext.jsx";
 import BoqContextProvider from "./context/BoqContext.jsx";
@@ -35,6 +34,7 @@ if (token) {
 axios.interceptors.response.use(
   (response) => response,
   (error) => {
+    console.log("helajflkdjfa;lsdjf;")
     if (error.response?.status === 401) {
       localStorage.removeItem("token");
       axios.defaults.headers.common["Authorization"] = "Bearer";
