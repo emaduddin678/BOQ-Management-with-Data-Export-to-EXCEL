@@ -12,7 +12,7 @@ const AdminPopUp = () => {
   const [error, setError] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState("");
   const [emailError, setEmailError] = useState(false);
-  const { prevAdminData } = useAdminContext();
+  const { prevAdminData, fetchAdmin } = useAdminContext();
   const [adminInfo, setadminInfo] = useState(prevAdminData);
   console.log(prevAdminData);
   console.log(adminInfo);
@@ -35,7 +35,7 @@ const AdminPopUp = () => {
 
     return re.test(email);
   };
-  console.log(validateEmail(adminInfo.email));
+  // console.log(validateEmail(adminInfo.email));
 
   const validateProjectInfo = () => {
     // console.log("Hello")
@@ -45,7 +45,9 @@ const AdminPopUp = () => {
       department === "" ||
       phone_number === "" ||
       email === "" ||
-      !validateEmail(email)
+      !validateEmail(email) ||
+      adminInfo.password !== confirmPassword ||
+      adminInfo.password.length < 6
     ) {
       console.log("Hello");
       console.log(validateEmail(email));
@@ -84,6 +86,7 @@ const AdminPopUp = () => {
                   text: "Admin updated successfully.",
                   icon: "success",
                 });
+                fetchAdmin();
                 // handleOpenAdmin();
                 console.log("updated info ");
               })
@@ -295,13 +298,22 @@ const AdminPopUp = () => {
                     value={adminInfo.password}
                     id="password"
                     className={`${
-                      adminInfo.password === "" && error
+                      adminInfo.password === "" &&
+                      error &&
+                      adminInfo.password.length < 6
                         ? "border-2 border-red-500 bg-gray-50 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                         : "bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                     }`}
                     placeholder="Type password..."
                     required=""
                   />
+                  {adminInfo.password.length < 6 && error ? (
+                    <p className="text-red-600">
+                      Password must be at least 6 character long!
+                    </p>
+                  ) : (
+                    ""
+                  )}
                 </div>
                 <div className="col-span-2 sm:col-span-1">
                   <label
@@ -314,7 +326,7 @@ const AdminPopUp = () => {
                   <input
                     type="text"
                     name="confirmPassword"
-                    onChange={handleFormInput}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
                     value={confirmPassword}
                     id="confirmPassword"
                     className={`${
@@ -325,6 +337,11 @@ const AdminPopUp = () => {
                     placeholder="Type confirmPassword..."
                     required=""
                   />
+                  {adminInfo.password !== confirmPassword && error ? (
+                    <p className="text-red-600">Password doesn't match!</p>
+                  ) : (
+                    ""
+                  )}
                 </div>
               </div>
               <div className="flex justify-between">
