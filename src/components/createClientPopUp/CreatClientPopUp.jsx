@@ -122,10 +122,11 @@ const CreateClientPopUp = () => {
                 console.log("Hello ");
               })
               .catch((err) => {
+                console.log(err)
                 handleCloseClient(false);
                 Swal.fire({
                   title: "Failed to create user.",
-                  text: err,
+                  text: err.response.data.message,
                   icon: "error",
                 });
                 console.log(err);
