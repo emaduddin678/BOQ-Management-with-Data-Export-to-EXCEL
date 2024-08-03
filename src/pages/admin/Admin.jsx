@@ -13,14 +13,21 @@ const Admin = () => {
     createClientModal,
     handleCloseClient,
     handleOpenClient,
-    handleDelete,
+
     fetchUsersByName,
     fetchUsersById,
     handleOpenUpdateClient,
   } = useClientContext();
-  const { allAdmin, fetchAdmin, handleUpdateAdmin,handleOpenAdmin } = useAdminContext();
+  const {
+    allAdmin,
+    fetchAdmin,
+    handleUpdateAdmin,
+    handleOpenAdmin,
+    handleDelete,
+    fetchAdminByName,
+    fetchAdminById,
+  } = useAdminContext();
 
-  
   useEffect(() => {
     fetchAdmin();
   }, []);
@@ -55,7 +62,9 @@ const Admin = () => {
                   type="search"
                   name="Search"
                   id="Search"
-                  onChange={(e) => fetchUsersByName(e.target.value)}
+                  onChange={
+                    ((e) => fetchAdminByName(e.target.value))
+                  }
                   placeholder="Search by name..."
                   className="w-32 py-2 pl-10 text-sm rounded-md font-medium sm:w-auto focus:outline-none bg-teal-600 !text-white placeholder:text-white focus:bg-teal-500 focus:border-gray-900"
                 />
@@ -79,7 +88,7 @@ const Admin = () => {
                   type="search"
                   name="searchId"
                   id="searchId"
-                  onChange={(e) => fetchUsersById(e.target.value)}
+                  onChange={(e) => fetchAdminById(e.target.value)}
                   placeholder="Search by id..."
                   className="w-32 py-2 pl-10 text-sm rounded-md font-medium sm:w-auto focus:outline-none bg-teal-600 !text-white placeholder:text-white focus:bg-teal-500 focus:border-gray-900"
                 />

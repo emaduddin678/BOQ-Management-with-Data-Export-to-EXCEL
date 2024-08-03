@@ -105,7 +105,7 @@ const Layout = () => {
         "relative h-screen overflow-hidden"
       }`}
     >
-      {console.log(openAdmin)}
+      {/* {console.log(openAdmin)} */}
       {createBoqModal && <CreateBoqPopUp handleCloseBOQ={handleCloseBOQ} />}
       {openAdmin && <AdminPopUp />}
       {createClientModal && (

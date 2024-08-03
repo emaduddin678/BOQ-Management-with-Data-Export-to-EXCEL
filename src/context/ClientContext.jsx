@@ -42,7 +42,7 @@ const ClientContextProvider = ({ children }) => {
 
   const fetchUsersByName = (name) => {
     try {
-      console.log(name);
+      // console.log(name);
       if (name === "") {
         fetchUsers();
       } else {
