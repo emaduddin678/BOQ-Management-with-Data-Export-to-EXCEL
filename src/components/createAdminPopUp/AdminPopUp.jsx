@@ -2,22 +2,28 @@ import React, { useContext, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useClientContext } from "../../context/ClientContext";
 import Swal from "sweetalert2";
 import getFormData from "../../utility/getFormData";
+import { useAllModalContext } from "../../context/AllModalContext";
+import { useAdminContext } from "../../context/AdminContext";
+import { RxCross2 } from "react-icons/rx";
 
 const AdminPopUp = () => {
   const [error, setError] = useState(false);
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [emailError, setEmailError] = useState(false);
-  const { handleCloseClient, prevClientData } = useClientContext();
-  const [clientInfo, setClientInfo] = useState(prevClientData);
-  console.log(clientInfo);
-  // console.log(prevClientData);
+  const { prevAdminData } = useAdminContext();
+  const [adminInfo, setadminInfo] = useState(prevAdminData);
+  console.log(prevAdminData);
+  console.log(adminInfo);
+  const { handleCloseAdmin } = useAllModalContext();
+
+  // console.log(prevAdminData);
 
   const navigate = useNavigate();
   const handleFormInput = (e) => {
     setEmailError(false);
-    setClientInfo((prev) => {
+    setadminInfo((prev) => {
       return {
         ...prev,
         [e.target.name]: e.target.value,
@@ -29,22 +35,21 @@ const AdminPopUp = () => {
 
     return re.test(email);
   };
-  console.log(validateEmail(clientInfo.email_id));
+  console.log(validateEmail(adminInfo.email));
 
   const validateProjectInfo = () => {
     // console.log("Hello")
-    const { client_name, department, circle, contact_number, email_id } =
-      clientInfo;
+    const { name, department, phone_number, email } = adminInfo;
     if (
-      client_name === "" ||
+      name === "" ||
       department === "" ||
-      contact_number === "" ||
-      email_id === "" ||
-      !validateEmail(email_id)
+      phone_number === "" ||
+      email === "" ||
+      !validateEmail(email)
     ) {
       console.log("Hello");
-      console.log(validateEmail(email_id));
-      if (!validateEmail(email_id)) {
+      console.log(validateEmail(email));
+      if (!validateEmail(email)) {
         setEmailError(true);
       }
       setError(true);
@@ -57,11 +62,11 @@ const AdminPopUp = () => {
   const hanleFormSubmit = (e) => {
     e.preventDefault();
     if (validateProjectInfo()) {
-      console.log(clientInfo.id);
-      if (clientInfo.id) {
+      console.log(adminInfo.id);
+      if (adminInfo.id) {
         Swal.fire({
-          title: "Do you want to update this user?",
-          text: "This user can update Project!",
+          title: "Do you want to update this Admin?",
+          text: "This Admin can Manage Project!",
           icon: "question",
           showCancelButton: true,
           cancelButtonColor: "#d33",
@@ -70,25 +75,22 @@ const AdminPopUp = () => {
         }).then((result) => {
           if (result.isConfirmed) {
             axios
-              .post(
-                `/client-user/update/${clientInfo.id}`,
-                getFormData(clientInfo)
-              )
+              .post(`/admin/update/${adminInfo.id}`, getFormData(adminInfo))
               .then((res) => {
                 console.log(res.data);
-                handleCloseClient(false);
+                handleCloseAdmin(false);
                 Swal.fire({
                   title: "Congretchulation!",
-                  text: "User updated successfully.",
+                  text: "Admin updated successfully.",
                   icon: "success",
                 });
-                // handleOpenClient();
+                // handleOpenAdmin();
                 console.log("updated info ");
               })
               .catch((err) => {
-                handleCloseClient(false);
+                handleCloseAdmin(false);
                 Swal.fire({
-                  title: "Failed to update user.",
+                  title: "Failed to update Admin.",
                   text: err,
                   icon: "error",
                 });
@@ -98,33 +100,33 @@ const AdminPopUp = () => {
         });
       } else {
         Swal.fire({
-          title: "Do you want to create this user?",
-          text: "This user can create Project!",
+          title: "Do you want to create this Admin?",
+          text: "This Admin Can Manage All Action!",
           icon: "question",
           showCancelButton: true,
           cancelButtonColor: "#d33",
           confirmButtonColor: "#3085d6",
-          confirmButtonText: "Yes, create user!",
+          confirmButtonText: "Yes, create Admin!",
         }).then((result) => {
           if (result.isConfirmed) {
             axios
-              .post("/client-user/create", getFormData(clientInfo))
+              .post("/admin/create", getFormData(adminInfo))
               .then((res) => {
                 console.log(res.data);
-                handleCloseClient(false);
+                handleCloseAdmin(false);
                 Swal.fire({
                   title: "Congretchulation!",
-                  text: "User created successfully.",
+                  text: "Admin created successfully.",
                   icon: "success",
                 });
-                // handleOpenClient();
+                // handleOpenAdmin();
                 console.log("Hello ");
               })
               .catch((err) => {
                 console.log(err);
-                handleCloseClient(false);
+                handleCloseAdmin(false);
                 Swal.fire({
-                  title: "Failed to create user.",
+                  title: "Failed to create Admin.",
                   text: err.response.data.message,
                   icon: "error",
                 });
@@ -141,13 +143,12 @@ const AdminPopUp = () => {
   const hanleRefreshForm = (e) => {
     e.preventDefault();
     setError(false);
-    setClientInfo({
-      client_name: "",
-      designation: "",
+    setadminInfo({
+      name: "",
       department: "",
-      circle: "",
-      contact_number: "",
-      email_id: "",
+      phone_number: "",
+      email: "",
+      password: "",
     });
   };
 
@@ -161,30 +162,16 @@ const AdminPopUp = () => {
           <div className="relative bg-black rounded-lg shadow ">
             <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t ">
               <h3 className="text-lg font-semibold text-white ">
-                Create New Client
+                Create New Admin
               </h3>
               {/* {console.log(handleCloseBOQ)} */}
               <button
-                onClick={() => handleCloseClient()}
+                onClick={() => handleCloseAdmin()}
                 type="button"
                 className="bg-transparent hover:bg-gray-200  text-white rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center  "
                 data-modal-toggle="crud-modal"
               >
-                <svg
-                  className="w-3 h-3"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 14 14"
-                >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-                  />
-                </svg>
+                <RxCross2 className="text-2xl" />
                 <span className="sr-only">Close modal</span>
               </button>
             </div>
@@ -193,79 +180,58 @@ const AdminPopUp = () => {
               <div className="grid gap-4 mb-4 grid-cols-2 bg-black ">
                 <div className="col-span-2 bg-black ">
                   <label
-                    htmlFor="client_name"
+                    htmlFor="name"
                     className="block mb-2 text-sm font-medium text-white "
                   >
-                    Client name
+                    Admin name
                   </label>
                   <input
                     type="text"
-                    name="client_name"
+                    name="name"
                     onChange={handleFormInput}
-                    value={clientInfo.client_name}
-                    id="client_name"
+                    value={adminInfo.name}
+                    id="name"
                     className={`${
-                      clientInfo.client_name === "" && error
+                      adminInfo.name === "" && error
                         ? "border-2 border-red-500 bg-gray-50 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                         : "bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                     }`}
-                    placeholder="Type client name..."
+                    placeholder="Type Admin name..."
                     required=""
                   />
-                  {clientInfo.client_name === "" && error ? (
-                    <p className="text-red-600">Client name can't be empty</p>
+                  {adminInfo.name === "" && error ? (
+                    <p className="text-red-600">Admin name can't be empty</p>
                   ) : (
                     ""
                   )}
                 </div>
-                <div className="col-span-2 bg-black ">
-                  <label
-                    htmlFor="designation"
-                    className="block mb-2 text-sm font-medium text-white "
-                  >
-                    Designation
-                  </label>
-                  <input
-                    type="text"
-                    name="designation"
-                    onChange={handleFormInput}
-                    value={clientInfo.designation}
-                    id="designation"
-                    className={`${
-                      clientInfo.designation === "" && error
-                        ? "border-2 border-red-500 bg-gray-50 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                        : "bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                    }`}
-                    placeholder="Type designation..."
-                    required=""
-                  />
-                </div>
+
                 <div className="col-span-2 sm:col-span-1">
                   <label
                     htmlFor="department"
                     className="block mb-2 text-sm font-medium  text-white "
                   >
-                    Contact number
+                    phone number
                   </label>
                   {/* {console.log(error)} */}
                   <input
                     type="tel"
-                    name="contact_number"
+                    name="phone_number"
                     onChange={handleFormInput}
-                    value={clientInfo.contact_number}
-                    id="contact_number"
+                    value={adminInfo.phone_number}
+                    id="phone_number"
                     className={`${
-                      clientInfo.contact_number === "" && error
+                      adminInfo.phone_number === "" && error
                         ? "border-2 border-red-500 bg-gray-50 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                         : "bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                     }`}
-                    placeholder="Type contact numbert..."
+                    placeholder="Type phone numbert..."
                     required=""
                   />
                 </div>
                 <div className="col-span-2 sm:col-span-1">
                   <label
-                    htmlFor="email_id"
+                    htmlFor="email"
                     className="block mb-2 text-sm font-medium  text-white "
                   >
                     Email
@@ -273,12 +239,12 @@ const AdminPopUp = () => {
                   {/* {console.log(error)} */}
                   <input
                     type="text"
-                    name="email_id"
+                    name="email"
                     onChange={handleFormInput}
-                    value={clientInfo.email_id}
-                    id="email_id"
+                    value={adminInfo.email}
+                    id="email"
                     className={`${
-                      clientInfo.email_id === "" && error && emailError
+                      adminInfo.email === "" && error && emailError
                         ? "border-2 border-red-500 bg-gray-50 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                         : "bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                     }`}
@@ -291,7 +257,7 @@ const AdminPopUp = () => {
                     ""
                   )}
                 </div>
-                <div className="col-span-2 sm:col-span-1">
+                <div className="col-span-1 sm:col-span-2">
                   <label
                     htmlFor="department"
                     className="block mb-2 text-sm font-medium  text-white "
@@ -303,10 +269,10 @@ const AdminPopUp = () => {
                     type="text"
                     name="department"
                     onChange={handleFormInput}
-                    value={clientInfo.department}
+                    value={adminInfo.department}
                     id="department"
                     className={`${
-                      clientInfo.department === "" && error
+                      adminInfo.department === "" && error
                         ? "border-2 border-red-500 bg-gray-50 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                         : "bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                     }`}
@@ -316,48 +282,50 @@ const AdminPopUp = () => {
                 </div>
                 <div className="col-span-2 sm:col-span-1">
                   <label
-                    htmlFor="circle"
+                    htmlFor="password"
                     className="block mb-2 text-sm font-medium  text-white "
                   >
-                    Aria Circle
+                    Password
                   </label>
-                  <select
-                    id="circle"
-                    name="circle"
+                  {/* {console.log(error)} */}
+                  <input
+                    type="text"
+                    name="password"
                     onChange={handleFormInput}
-                    value={clientInfo.circle}
+                    value={adminInfo.password}
+                    id="password"
                     className={`${
-                      clientInfo.circle === "" && error
-                        ? "border-2 border-red-500 bg-gray-50 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 cursor-pointer focus:ring-primary-500 focus:border-primary-500 "
-                        : "cursor-pointer bg-gray-50 border border-gray-300  text-gray-800 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
+                      adminInfo.password === "" && error
+                        ? "border-2 border-red-500 bg-gray-50 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                        : "bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                     }`}
-                    // className="cursor-pointer bg-gray-50 border border-gray-300  text-gray-800 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
-                  >
-                    <option defaultValue="">Select Aria Circle</option>
-                    <option value="dhaka">Dhaka</option>
-                    <option value="chattogram">Chattogram</option>
-                    <option value="sylhet">Sylhet</option>
-                    <option value="khulna">Khulna</option>
-                    <option value="barishal">Barishal</option>
-                    <option value="rangpur">Rangpur</option>
-                    <option value="mymensingh">Mymensingh</option>
-                  </select>
+                    placeholder="Type password..."
+                    required=""
+                  />
                 </div>
-
-                {/* <div className="col-span-2">
-                      <label
-                        htmlFor="description"
-                        className="block mb-2 text-sm font-medium  text-white "
-                      >
-                        Product Description
-                      </label>
-                      <textarea
-                        id="description"
-                        rows="4"
-                        className="block p-2.5 w-full text-sm  text-white bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-                        placeholder="Write product description here"
-                      ></textarea>
-                    </div> */}
+                <div className="col-span-2 sm:col-span-1">
+                  <label
+                    htmlFor="confirmPassword"
+                    className="block mb-2 text-sm font-medium  text-white "
+                  >
+                    Confirm password
+                  </label>
+                  {/* {console.log(error)} */}
+                  <input
+                    type="text"
+                    name="confirmPassword"
+                    onChange={handleFormInput}
+                    value={confirmPassword}
+                    id="confirmPassword"
+                    className={`${
+                      adminInfo.password !== confirmPassword && error
+                        ? "border-2 border-red-500 bg-gray-50 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                        : "bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                    }`}
+                    placeholder="Type confirmPassword..."
+                    required=""
+                  />
+                </div>
               </div>
               <div className="flex justify-between">
                 <button
@@ -377,24 +345,12 @@ const AdminPopUp = () => {
                       clipRule="evenodd"
                     ></path>
                   </svg>
-                  Add new client
+                  Add new Admin
                 </button>
                 <button
                   onClick={hanleRefreshForm}
                   className=" text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
                 >
-                  {/* <svg
-                    className="me-1 -ms-1 w-5 h-5 opacity-0"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                      clipRule="evenodd"
-                    ></path>
-                  </svg> */}
                   Refresh Form
                 </button>
               </div>

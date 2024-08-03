@@ -9,6 +9,7 @@ import { useAuth } from "../../context/AuthContext";
 import HistoryPage from "../historyPage/HistoryPage";
 import { useBoqContext } from "../../context/BoqContext";
 import formateDate from "../../utility/getFormattedDate";
+import { useAllModalContext } from "../../context/AllModalContext";
 
 const DashBoard = () => {
   const navigate = useNavigate();
@@ -17,6 +18,7 @@ const DashBoard = () => {
   const { createClientModal, handleOpenClient, handleCloseClient, fetchUsers } =
     useClientContext();
   const { allBoq, fetchBoq, boqDisable } = useBoqContext();
+
   // console.log(allBoq);
 
   const [createBoqModal, setCreateBoqModal] = useState(false);
@@ -35,12 +37,12 @@ const DashBoard = () => {
     // if (getStatus === "close") {
     //   document.getElementById("navId").classList.toggle("close");
     // }
-    boqDisable()
+    boqDisable();
   }, []);
 
   // console.log(JSON.parse(allBoq[0].BOQ));
   // console.log(allBoq.length ? JSON.parse(JSON.parse( allBoq[0].BOQ)): "");
-  // console.log(typeof (allBoq[0].BOQ)); 
+  // console.log(typeof (allBoq[0].BOQ));
 
   return (
     <div className="dash-content">
@@ -105,7 +107,12 @@ const DashBoard = () => {
                       <p>{formateDate(item.created_at).split("UTC")[0]}</p>
                     </td>
                     <td className="p-3">
-                      <p onClick={()=>navigate("history")} className="cursor-pointer rounded-md inline text-white font-semibold px-3 py-1 bg-teal-500">View Project Details</p>
+                      <p
+                        onClick={() => navigate("history")}
+                        className="cursor-pointer rounded-md inline text-white font-semibold px-3 py-1 bg-teal-500"
+                      >
+                        View Project Details
+                      </p>
                     </td>
                   </tr>
                 ))

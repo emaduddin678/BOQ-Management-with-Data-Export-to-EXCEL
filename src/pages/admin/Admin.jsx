@@ -5,6 +5,7 @@ import { useBoqContext } from "../../context/BoqContext";
 import { FaPlus } from "react-icons/fa";
 import { BsSearch } from "react-icons/bs";
 import { useAdminContext } from "../../context/AdminContext";
+import { useAllModalContext } from "../../context/AllModalContext";
 
 const Admin = () => {
   const {
@@ -19,9 +20,8 @@ const Admin = () => {
   } = useClientContext();
   const { allAdmin, fetchAdmin } = useAdminContext();
 
-  const { boqDisable } = useBoqContext();
+  const {  handleOpenAdmin,  } = useAllModalContext();
   useEffect(() => {
-    boqDisable();
     fetchAdmin();
   }, []);
 
@@ -30,11 +30,11 @@ const Admin = () => {
       <div className="container p-2 mx-auto sm:p-4 text-gray-100">
         <div className="flex justify-between items-center mb-5">
           <button
-            onClick={handleOpenClient}
+            onClick={handleOpenAdmin}
             className="text-xl font-semibold rounded-md px-4 py-1 flex justify-between items-center gap-2 bg-teal-600"
           >
             <FaPlus />
-            <span>Create New Client</span>
+            <span>Create New Admin</span>
           </button>
           <div className="flex justify-between items-center gap-5">
             <fieldset className="w-full space-y-1 text-gray-100">
@@ -119,7 +119,7 @@ const Admin = () => {
                     <td className="p-3">
                       <p>{item.department}</p>
                     </td>
-                    {console.log(item.phone_number)}
+                    {/* {console.log(item.phone_number)} */}
                     <td className="p-3">
                       <p>{item.phone_number}</p>
                     </td>

@@ -5,6 +5,7 @@ import axios from "axios";
 import { useClientContext } from "../../context/ClientContext";
 import Swal from "sweetalert2";
 import getFormData from "../../utility/getFormData";
+import { RxCross2 } from "react-icons/rx";
 
 const CreateClientPopUp = () => {
   const [error, setError] = useState(false);
@@ -26,13 +27,13 @@ const CreateClientPopUp = () => {
   };
   const validateEmail = (email) => {
     var re = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    
+
     return re.test(email);
   };
   console.log(validateEmail(clientInfo.email_id));
 
   const validateProjectInfo = () => {
-  // console.log("Hello")
+    // console.log("Hello")
     const { client_name, department, circle, contact_number, email_id } =
       clientInfo;
     if (
@@ -42,7 +43,7 @@ const CreateClientPopUp = () => {
       email_id === "" ||
       !validateEmail(email_id)
     ) {
-      console.log("Hello")
+      console.log("Hello");
       console.log(validateEmail(email_id));
       if (!validateEmail(email_id)) {
         setEmailError(true);
@@ -54,7 +55,6 @@ const CreateClientPopUp = () => {
     return true;
   };
 
- 
   const hanleFormSubmit = (e) => {
     e.preventDefault();
     if (validateProjectInfo()) {
@@ -122,7 +122,7 @@ const CreateClientPopUp = () => {
                 console.log("Hello ");
               })
               .catch((err) => {
-                console.log(err)
+                console.log(err);
                 handleCloseClient(false);
                 Swal.fire({
                   title: "Failed to create user.",
@@ -171,21 +171,7 @@ const CreateClientPopUp = () => {
                 className="bg-transparent hover:bg-gray-200  text-white rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center  "
                 data-modal-toggle="crud-modal"
               >
-                <svg
-                  className="w-3 h-3"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 14 14"
-                >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-                  />
-                </svg>
+                <RxCross2 className="text-2xl" />
                 <span className="sr-only">Close modal</span>
               </button>
             </div>

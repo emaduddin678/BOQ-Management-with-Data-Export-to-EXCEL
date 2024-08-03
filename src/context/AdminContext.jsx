@@ -10,6 +10,13 @@ export function useAdminContext() {
 
 export default function AdminContextProvider({ children }) {
   const [allAdmin, setAllAdmin] = useState([]);
+  const [prevAdminData, setPrevAdminData] = useState({
+    name: "",
+    department: "",
+    phone_number: "",
+    email: "",
+    password: "",
+  });
 
   const fetchAdmin = () => {
     try {
@@ -32,6 +39,7 @@ export default function AdminContextProvider({ children }) {
   const value = {
     allAdmin,
     fetchAdmin,
+    prevAdminData,
   };
 
   return (
