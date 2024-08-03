@@ -18,11 +18,18 @@ import { HiLogout } from "react-icons/hi";
 import { FaRegMoon } from "react-icons/fa";
 import { FiSun } from "react-icons/fi";
 import { GrUserAdmin } from "react-icons/gr";
+import AdminPopUp from "../../components/createAdminPopUp/AdminPopUp";
 const Layout = () => {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const { logout } = useAuth();
-  const { createBoqModal, handleBoqPopup, handleCloseBOQ } =
-    useAllModalContext();
+  const {
+    createBoqModal,
+    handleBoqPopup,
+    handleCloseBOQ,
+    openAdmin,
+    handleOpenAdmin,
+    handleCloseAdmin,
+  } = useAllModalContext();
   const [modeState, setModeState] = useState(localStorage.getItem("mode"));
   const [navName, setNavName] = useState("/dashboard");
   // console.log("🚀 ~ Layout ~ createBoqModal:", createBoqModal);
@@ -92,11 +99,12 @@ const Layout = () => {
   return (
     <div
       className={`${
-        (createBoqModal || createClientModal) &&
+        (createBoqModal || createClientModal || !openAdmin) &&
         "relative h-screen overflow-hidden"
       }`}
     >
       {createBoqModal && <CreateBoqPopUp handleCloseBOQ={handleCloseBOQ} />}
+      {openAdmin && <AdminPopUp />}
       {createClientModal && (
         <CreateClientPopUp
           handleCloseClient={handleCloseClient}

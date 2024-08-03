@@ -15,6 +15,7 @@ import ClientContextProvider from "./context/ClientContext.jsx";
 import BoqContextProvider from "./context/BoqContext.jsx";
 import { AllModalContext } from "./context/AllModalContext.jsx";
 import HistoryContextProvider from "./context/HistoryContext.jsx";
+import AdminContextProvider from "./context/AdminContext.jsx";
 
 // Create a client
 const queryClient = new QueryClient();
@@ -34,7 +35,7 @@ if (token) {
 axios.interceptors.response.use(
   (response) => response,
   (error) => {
-    console.log("helajflkdjfa;lsdjf;")
+    console.log("helajflkdjfa;lsdjf;");
     if (error.response?.status === 401) {
       localStorage.removeItem("token");
       axios.defaults.headers.common["Authorization"] = "Bearer";
@@ -52,11 +53,13 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <HistoryContextProvider>
           <ClientContextProvider>
             <BoqContextProvider>
-              <QueryClientProvider client={queryClient}>
-                <BrowserRouter>
-                  <App />
-                </BrowserRouter>
-              </QueryClientProvider>
+              <AdminContextProvider>
+                <QueryClientProvider client={queryClient}>
+                  <BrowserRouter>
+                    <App />
+                  </BrowserRouter>
+                </QueryClientProvider>
+              </AdminContextProvider>
             </BoqContextProvider>
           </ClientContextProvider>
         </HistoryContextProvider>
