@@ -86,6 +86,7 @@ const CreateBoqPopUp = ({ handleCloseBOQ }) => {
   };
   // console.log(clientsIdWithName);
   const hanleFormSubmit = (e) => {
+    console.log(boq);
     e.preventDefault();
     // console.log(boq);
     if (validateboq()) {
@@ -247,6 +248,36 @@ const CreateBoqPopUp = ({ handleCloseBOQ }) => {
                     placeholder="Enter name..."
                     required=""
                   />
+                </div>
+                <div className="col-span-2 sm:col-span-1">
+                  <label
+                    htmlFor="circle"
+                    className="block mb-2 text-sm font-medium  text-white "
+                  >
+                    Aria Circle
+                  </label>
+
+                  <select
+                    id="circle"
+                    name="circle"
+                    onChange={handleFormInput}
+                    value={boq.circle}
+                    className={`${
+                      boq.circle === "" && error
+                        ? "border-2 border-red-500 bg-gray-50 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 cursor-pointer focus:ring-primary-500 focus:border-primary-500 "
+                        : "cursor-pointer bg-gray-50 border border-gray-300  text-gray-800 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
+                    }`}
+                    // className="cursor-pointer bg-gray-50 border border-gray-300  text-gray-800 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
+                  >
+                    <option defaultValue="">Select Aria Circle</option>
+                    <option value="dhaka">Dhaka</option>
+                    <option value="chattogram">Chattogram</option>
+                    <option value="sylhet">Sylhet</option>
+                    <option value="khulna">Khulna</option>
+                    <option value="barishal">Barishal</option>
+                    <option value="rangpur">Rangpur</option>
+                    <option value="mymensingh">Mymensingh</option>
+                  </select>
                 </div>
                 <div className="col-span-2 sm:col-span-1">
                   <label
