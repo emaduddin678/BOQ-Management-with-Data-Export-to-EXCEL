@@ -10,7 +10,6 @@ export function useAllModalContext() {
 
 export function AllModalContext({ children }) {
   const [createBoqModal, setCreateBoqModal] = useState(false);
-  const [openAdmin, setOpenAdmin] = useState(false);
 
   const handleBoqPopup = () => {
     setCreateBoqModal(true);
@@ -19,13 +18,6 @@ export function AllModalContext({ children }) {
   const handleCloseBOQ = () => {
     setCreateBoqModal(false);
   };
-  const handleOpenAdmin = () => {
-    setOpenAdmin(true);
-  };
-
-  const handleCloseAdmin = () => {
-    setOpenAdmin(false);
-  };
 
   const value = {
     createBoqModal,
@@ -33,9 +25,6 @@ export function AllModalContext({ children }) {
     handleCloseBOQ,
 
     
-    openAdmin,
-    handleOpenAdmin,
-    handleCloseAdmin,
   };
 
   return (

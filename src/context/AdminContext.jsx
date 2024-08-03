@@ -10,6 +10,8 @@ export function useAdminContext() {
 
 export default function AdminContextProvider({ children }) {
   const [allAdmin, setAllAdmin] = useState([]);
+  const [openAdmin, setOpenAdmin] = useState(false);
+
   const [prevAdminData, setPrevAdminData] = useState({
     name: "",
     department: "",
@@ -17,6 +19,15 @@ export default function AdminContextProvider({ children }) {
     email: "",
     password: "",
   });
+
+  const handleOpenAdmin = () => {
+    setOpenAdmin(true);
+    console.log("hello");
+  };
+
+  const handleCloseAdmin = () => {
+    setOpenAdmin(false);
+  };
 
   const fetchAdmin = () => {
     try {
@@ -36,10 +47,21 @@ export default function AdminContextProvider({ children }) {
     }
   };
 
+  const handleUpdateAdmin = (info) => {
+    console.log("🚀 ~ handleUpdateClient ~ info:", info);
+    setPrevAdminData((prev) => ({ ...prev, ...info }));
+    handleOpenAdmin();
+    // fetchUsers();
+  };
+
   const value = {
     allAdmin,
     fetchAdmin,
+    openAdmin,
     prevAdminData,
+    handleOpenAdmin,
+    handleUpdateAdmin,
+    handleCloseAdmin,
   };
 
   return (

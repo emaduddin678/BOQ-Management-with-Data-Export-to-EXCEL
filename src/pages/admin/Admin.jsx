@@ -18,9 +18,9 @@ const Admin = () => {
     fetchUsersById,
     handleOpenUpdateClient,
   } = useClientContext();
-  const { allAdmin, fetchAdmin } = useAdminContext();
+  const { allAdmin, fetchAdmin, handleUpdateAdmin,handleOpenAdmin } = useAdminContext();
 
-  const {  handleOpenAdmin,  } = useAllModalContext();
+  
   useEffect(() => {
     fetchAdmin();
   }, []);
@@ -125,7 +125,7 @@ const Admin = () => {
                     </td>
                     <td className="p-3 flex justify-between">
                       <span
-                        onClick={() => handleOpenUpdateClient(item)}
+                        onClick={() => handleUpdateAdmin(item)}
                         className="cursor-pointer px-3 py-1 font-semibold rounded-md bg-violet-400 text-gray-900"
                       >
                         <span>Update</span>

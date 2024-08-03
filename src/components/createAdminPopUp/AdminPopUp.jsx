@@ -12,11 +12,10 @@ const AdminPopUp = () => {
   const [error, setError] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState("");
   const [emailError, setEmailError] = useState(false);
-  const { prevAdminData, fetchAdmin } = useAdminContext();
+  const { prevAdminData, handleCloseAdmin, fetchAdmin } = useAdminContext();
   const [adminInfo, setadminInfo] = useState(prevAdminData);
   console.log(prevAdminData);
   console.log(adminInfo);
-  const { handleCloseAdmin } = useAllModalContext();
 
   // console.log(prevAdminData);
 
@@ -94,7 +93,7 @@ const AdminPopUp = () => {
                 handleCloseAdmin(false);
                 Swal.fire({
                   title: "Failed to update Admin.",
-                  text: err,
+                  text: err.response.data.message,
                   icon: "error",
                 });
                 console.log(err);
@@ -122,6 +121,7 @@ const AdminPopUp = () => {
                   text: "Admin created successfully.",
                   icon: "success",
                 });
+                fetchAdmin();
                 // handleOpenAdmin();
                 console.log("Hello ");
               })
