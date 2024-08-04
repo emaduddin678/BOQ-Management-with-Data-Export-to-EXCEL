@@ -1,29 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
-import CreateBoqPopUp from "../../components/createBoqPopUp/CreateBoqPopUp";
-import ClientManagement from "../../components/clientManagement/ClientManagement";
-import CreateClientPopUp from "../../components/createClientPopUp/CreatClientPopUp";
+import { useNavigate } from "react-router-dom";
 import { useClientContext } from "../../context/ClientContext";
-import { useAuth } from "../../context/AuthContext";
-import HistoryPage from "../historyPage/HistoryPage";
+
 import { useBoqContext } from "../../context/BoqContext";
 import formateDate from "../../utility/getFormattedDate";
-import { useAllModalContext } from "../../context/AllModalContext";
 
 const DashBoard = () => {
   const navigate = useNavigate();
-  const { logout } = useAuth();
-
-  const { createClientModal, handleOpenClient, handleCloseClient, fetchUsers } =
-    useClientContext();
+  const { fetchUsers, clientData } = useClientContext();
   const { allBoq, fetchBoq, boqDisable } = useBoqContext();
-
-  // console.log(allBoq);
-
-  const [createBoqModal, setCreateBoqModal] = useState(false);
-  const [clientManagementShow, setClientManagementShow] = useState(false);
-  const [historyShow, setHistoryShow] = useState(false);
 
   useEffect(() => {
     // Set initial mode based on localStorage
@@ -33,15 +18,9 @@ const DashBoard = () => {
     }
     fetchUsers();
     fetchBoq();
-    // if (getStatus === "close") {
-    //   document.getElementById("navId").classList.toggle("close");
-    // }
+
     boqDisable();
   }, []);
-
-  // console.log(JSON.parse(allBoq[0].BOQ));
-  // console.log(allBoq.length ? JSON.parse(JSON.parse( allBoq[0].BOQ)): "");
-  // console.log(typeof (allBoq[0].BOQ));
 
   return (
     <div className="dash-content">
@@ -54,12 +33,12 @@ const DashBoard = () => {
           <div className="box box1">
             <i className="uil uil-thumbs-up"></i>
             <span className="text">Total Projects</span>
-            <span className="number">8</span>
+            <span className="number">{allBoq.length}</span>
           </div>
           <div className="box box2">
             <i className="uil uil-comments"></i>
             <span className="text">Total Clients</span>
-            <span className="number">14</span>
+            <span className="number">{clientData.length}</span>
           </div>
           <div className="box box3">
             <i className="uil uil-share"></i>
@@ -86,35 +65,36 @@ const DashBoard = () => {
             </thead>
             <tbody>
               {allBoq.length > 0 ? (
-                allBoq.map((item) => (
-                  <tr
-                    key={item.id}
-                    className="border-b border-opacity-20 border-gray-700 "
-                  >
-                    {/* {console.log(item)} */}
-                    <td className="p-3">
-                      <p>{item.Project_name}</p>
-                    </td>
-                    <td className="p-3">
-                      <p>{item.GP_user_name}</p>
-                    </td>
-                    <td className="p-3">
-                      <p>{item.AEXP_BOQ_Creator}</p>
-                    </td>
-                    <td className="p-3">
-                      {/* {console.log(formateDate(item.created_at))} */}
-                      <p>{formateDate(item.created_at).split("UTC")[0]}</p>
-                    </td>
-                    <td className="p-3">
-                      <p
-                        onClick={() => navigate("history")}
-                        className="cursor-pointer rounded-md inline text-white font-semibold px-3 py-1 bg-teal-500"
+                allBoq.map(
+                  (item, index) =>
+                    index < 10 && (
+                      <tr
+                        key={item.id}
+                        className="border-b border-opacity-20 border-gray-700 "
                       >
-                        View Project Details
-                      </p>
-                    </td>
-                  </tr>
-                ))
+                        <td className="p-3">
+                          <p>{item.Project_name}</p>
+                        </td>
+                        <td className="p-3">
+                          <p>{item.GP_user_name}</p>
+                        </td>
+                        <td className="p-3">
+                          <p>{item.AEXP_BOQ_Creator}</p>
+                        </td>
+                        <td className="p-3">
+                          <p>{formateDate(item.created_at).split("UTC")[0]}</p>
+                        </td>
+                        <td className="p-3">
+                          <p
+                            onClick={() => navigate("history")}
+                            className="cursor-pointer rounded-md inline text-white font-semibold px-3 py-1 bg-teal-500"
+                          >
+                            View Project Details
+                          </p>
+                        </td>
+                      </tr>
+                    )
+                )
               ) : (
                 <tr>
                   <td colSpan="6" className="p-3 text-center bg-gray-700">
