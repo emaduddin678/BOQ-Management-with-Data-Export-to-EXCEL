@@ -50,7 +50,6 @@ const Layout = () => {
     }
     fetchUsers();
     fetchBoq();
-    // const getStatus = localStorage.getItem("status") || "close";
     // if (getStatus === "close") {
     //   document.getElementById("navId").classList.toggle("close");
     // }
@@ -78,8 +77,11 @@ const Layout = () => {
     }
   };
 
-  const handleLogout = () => {
-    logout();
+  const handleLogout = async () => {
+    const response = await logout();
+    if (response) {
+      navigate("/");
+    }
   };
 
   // console.log(window.location.href);

@@ -9,14 +9,34 @@ export function useAuth() {
 }
 
 export function AuthProvider({ children }) {
-  const [currentUser, setCurrentUser] = useState(false);
+  // const [currentUser, setCurrentUser] = useState(!false);
 
-  const setCurrentUserTrue = () => {
-    setCurrentUser(true);
-  };
-  const setCurrentUserFalse = () => {
-    setCurrentUser(false);
-  };
+  // const setCurrentUserTrue = () => {
+  //   setCurrentUser(true);
+  // };
+  // const setCurrentUserFalse = () => {
+  //   setCurrentUser(false);
+  // };
+  console.log(localStorage.getItem("user"));
+  useEffect(() => {
+    console.log(
+      localStorage.getItem("user") === true,
+      localStorage.getItem("user") === "true",
+      typeof localStorage.getItem("user"),
+      window.location.href === "http://localhost:5173",
+      window.location.href === "localhost:5173",
+      window.location.href
+    );
+    if (localStorage.getItem("user") === true) {
+      console.log("AuthContext if");
+      // setCurrentUser(true);
+      localStorage.setItem("user", true);
+    } else if (window.location.href === "http://localhost:5173/") {
+      console.log("AuthContext ielsef");
+      localStorage.setItem("user", false);
+      // setCurrentUser(false);
+    }
+  }, []);
 
   async function login(userInfo) {
     try {
@@ -26,31 +46,43 @@ export function AuthProvider({ children }) {
         axios.defaults.headers.common[
           "Authorization"
         ] = `Bearer ${response.data.token}`;
-        setCurrentUser(true);
+        localStorage.setItem("user", true);
+        // setCurrentUser(true);
         return true;
       }
     } catch (error) {
+      localStorage.setItem("user", false);
       console.log(error);
       return false;
     }
   }
 
-  function logout() {
-    axios
-      .post("/logout")
-      .then(() => {
-        localStorage.removeItem("token");
-        setCurrentUser(false);
-      })
-      .catch((err) => console.log(err));
+  async function logout() {
+    const response = await axios.post("/logout");
+
+    console.log(response);
+    if (response.data.status) {
+      localStorage.setItem("user", false);
+      localStorage.removeItem("token");
+      return true;
+    } else {
+      localStorage.setItem("user", true);
+      return false;
+    }
+    // .then(() => {
+    //   localStorage.setItem("user", false);
+
+    //   localStorage.removeItem("token");
+    //   return true;
+    //   // setCurrentUser(false);
+    // })
+    // .catch((err) => console.log(err));
   }
 
   const value = {
-    currentUser,
+    // currentUser,
     login,
     logout,
-    setCurrentUserTrue,
-    setCurrentUserFalse,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

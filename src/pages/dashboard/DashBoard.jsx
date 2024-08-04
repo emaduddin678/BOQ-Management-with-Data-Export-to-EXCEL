@@ -33,7 +33,6 @@ const DashBoard = () => {
     }
     fetchUsers();
     fetchBoq();
-    // const getStatus = localStorage.getItem("status") || "close";
     // if (getStatus === "close") {
     //   document.getElementById("navId").classList.toggle("close");
     // }

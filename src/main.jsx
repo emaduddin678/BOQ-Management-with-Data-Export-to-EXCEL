@@ -35,9 +35,10 @@ if (token) {
 axios.interceptors.response.use(
   (response) => response,
   (error) => {
-    console.log("helajflkdjfa;lsdjf;");
+    // console.log("helajflkdjfa;lsdjf;");
     if (error.response?.status === 401) {
       localStorage.removeItem("token");
+      localStorage.setItem("user", false);
       axios.defaults.headers.common["Authorization"] = "Bearer";
       // Redirect to login route
       return redirect("/");

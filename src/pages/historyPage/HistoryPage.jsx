@@ -12,11 +12,10 @@ import removeUnderScore from "../../utility/removeUderScore";
 import { useHistoryContext } from "../../context/HistoryContext.jsx";
 import DatePicker, { CalendarContainer } from "react-datepicker";
 import { AiOutlineDelete } from "react-icons/ai";
-import {  useNavigate } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 
 const HistoryPage = () => {
- const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const { boqDisable, updateBoqFromHistoryPage } = useBoqContext();
   const [startDate, setStartDate] = useState(new Date());
@@ -34,13 +33,18 @@ const HistoryPage = () => {
   }, []);
 
   const handleEditOption = (item) => {
-    if(updateBoqFromHistoryPage(item)){
-      navigate("/dashboard/createboq")
+    if (updateBoqFromHistoryPage(item)) {
+      navigate("/dashboard/createboq");
     }
+  };
+  const tokenChange = () => {
+    console.log(localStorage.getItem("token") + "abc");
+    localStorage.setItem("token", localStorage.getItem("token") + "abc");
   };
 
   return (
     <div className=" w-full overflow-x-auto  mt-20">
+      <button onClick={tokenChange}>click to change token</button>
       <table className="text-xs w-[2400px] !table-fixed">
         <thead className="">
           <tr className="text-left border-[1px] bg-teal-600">
