@@ -9,7 +9,7 @@ import {
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
-import { BrowserRouter, redirect } from "react-router-dom";
+import { BrowserRouter, Navigate, redirect } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext.jsx";
 import ClientContextProvider from "./context/ClientContext.jsx";
 import BoqContextProvider from "./context/BoqContext.jsx";
@@ -41,7 +41,7 @@ axios.interceptors.response.use(
       localStorage.setItem("user", false);
       axios.defaults.headers.common["Authorization"] = "Bearer";
       // Redirect to login route
-      return redirect("/");
+      return <Navigate to="/" />;
     }
     return Promise.reject(error);
   }
