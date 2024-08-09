@@ -27,6 +27,17 @@ const BoqContextProvider = ({ children }) => {
     BOQ: [],
     BOQ_ID: "",
   });
+  const emptyBoqForm = () => {
+    setBoq((prev) => ({
+      ...prev,
+      Project_name: "",
+      AEXP_BOQ_Creator: "",
+      GP_user_id: "",
+      GP_user_email: "",
+      BOQ: [],
+      BOQ_ID: "",
+    }));
+  };
 
   const getGPUserId = (id, email) => {
     setBoq((prev) => ({ ...prev, GP_user_id: id, GP_user_email: email }));
@@ -189,6 +200,7 @@ const BoqContextProvider = ({ children }) => {
     generateRandomId,
     getGPUserId,
     validateboq,
+    emptyBoqForm,
 
     createBoq,
     allProduct,

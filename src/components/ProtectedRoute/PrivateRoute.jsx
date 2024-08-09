@@ -4,7 +4,7 @@ import { Navigate } from "react-router-dom";
 
 const PrivateRoute = ({ children }) => {
   
-  console.log(localStorage.getItem("user"));
+  // console.log(localStorage.getItem("user"));
 
 
   if (localStorage.getItem("user")) {

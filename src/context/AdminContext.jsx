@@ -36,7 +36,7 @@ export default function AdminContextProvider({ children }) {
         .get("/admin/all-user")
         .then((res) => {
           if (res.status === 200) {
-            console.log(res.data.data);
+            // console.log(res.data.data);
             setAllAdmin(res.data.data);
           }
         })

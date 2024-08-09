@@ -17,22 +17,22 @@ export function AuthProvider({ children }) {
   // const setCurrentUserFalse = () => {
   //   setCurrentUser(false);
   // };
-  console.log(localStorage.getItem("user"));
+  // console.log(localStorage.getItem("user"));
   useEffect(() => {
-    console.log(
-      localStorage.getItem("user") === true,
-      localStorage.getItem("user") === "true",
-      typeof localStorage.getItem("user"),
-      window.location.href === "http://localhost:5173",
-      window.location.href === "localhost:5173",
-      window.location.href
-    );
+    // console.log(
+    //   localStorage.getItem("user") === true,
+    //   localStorage.getItem("user") === "true",
+    //   typeof localStorage.getItem("user"),
+    //   window.location.href === "http://localhost:5173",
+    //   window.location.href === "localhost:5173",
+    //   window.location.href
+    // );
     if (localStorage.getItem("user") === true) {
-      console.log("AuthContext if");
+      // console.log("AuthContext if");
       // setCurrentUser(true);
       localStorage.setItem("user", true);
     } else if (window.location.href === "http://localhost:5173/") {
-      console.log("AuthContext ielsef");
+      // console.log("AuthContext ielsef");
       localStorage.setItem("user", false);
       // setCurrentUser(false);
     }

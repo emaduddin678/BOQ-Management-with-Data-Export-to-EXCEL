@@ -38,7 +38,8 @@ const Layout = () => {
 
   const { createClientModal, handleOpenClient, handleCloseClient, fetchUsers } =
     useClientContext();
-  const { allBoq, fetchBoq, createBoqIsDisabled, boqDisable } = useBoqContext();
+  const { allBoq, fetchBoq, createBoqIsDisabled, boqDisable, emptyBoqForm } =
+    useBoqContext();
   // console.log(allBoq);
 
   useEffect(() => {
@@ -69,10 +70,23 @@ const Layout = () => {
     }
   };
   const handleSidebarToggle = () => {
+    const linkName = Array.from(document.getElementsByClassName("link-name"));
+
     document.getElementById("navId").classList.toggle("close");
     if (document.getElementById("navId").classList.contains("close")) {
       localStorage.setItem("status", "close");
+      setTimeout(() => {
+        linkName.forEach((element) => {
+          element.classList.add("!opacity-0");
+        });
+      }, 400);
     } else {
+      console.log("status", "open");
+      setTimeout(() => {
+        linkName.forEach((element) => {
+          element.classList.remove("!opacity-0");
+        });
+      }, 400);
       localStorage.setItem("status", "open");
     }
   };
@@ -117,7 +131,7 @@ const Layout = () => {
         />
       )}
       <nav id="navId">
-        <div className="logo-name">
+        <div className="logo-name h-12 rounded-md">
           <div className="logo-image">
             <img src="/brand-logo.png" alt="" />
           </div>
@@ -131,7 +145,7 @@ const Layout = () => {
                 onClick={() => navigate("/dashboard")}
                 className={`!rounded-md ${
                   navName === "/dashboard" ? "!bg-teal-600" : ""
-                } pl-2`}
+                } `}
               >
                 <RiDashboardLine
                   className={`${
@@ -141,7 +155,7 @@ const Layout = () => {
                 <button
                   className={`${
                     navName === "/dashboard" ? "!text-white" : " "
-                  } link-name !font-semibold !ml-[14px]`}
+                  } link-name     !font-semibold !ml-[14px]`}
                 >
                   Dashboard
                 </button>
@@ -150,9 +164,11 @@ const Layout = () => {
             <li>
               <button
                 style={{ cursor: "pointer" }}
-                onClick={handleBoqPopup}
+                onClick={() => {
+                  handleBoqPopup(), emptyBoqForm();
+                }}
                 disabled={createBoqIsDisabled}
-                className={` pl-2 !rounded-md w-full ${
+                className={` !rounded-md w-full ${
                   navName === "/dashboard/createboq" ? "!bg-teal-600" : ""
                 }`}
               >
@@ -166,7 +182,7 @@ const Layout = () => {
                 <span
                   className={`${
                     navName === "/dashboard/createboq" ? "!text-white" : " "
-                  } link-name !font-semibold !ml-[12px]`}
+                  } link-name     !font-semibold !ml-[12px]`}
                 >
                   Create BOQ
                 </span>
@@ -176,7 +192,7 @@ const Layout = () => {
               <div
                 style={{ cursor: "pointer" }}
                 onClick={() => navigate("history")}
-                className={` pl-2 !rounded-md ${
+                className={`  !rounded-md ${
                   navName === "/dashboard/history" ? "!bg-teal-600" : ""
                 }`}
               >
@@ -191,7 +207,7 @@ const Layout = () => {
                   onClick={() => navigate("history")}
                   className={`${
                     navName === "/dashboard/history" ? "!text-white" : " "
-                  } link-name !font-semibold !ml-[11px] !rounded-md`}
+                  } link-name     !font-semibold !ml-[11px] !rounded-md`}
                 >
                   BOQ History
                 </span>
@@ -202,7 +218,7 @@ const Layout = () => {
               <div
                 style={{ cursor: "pointer" }}
                 onClick={() => navigate("client-user")}
-                className={` pl-2 !rounded-md ${
+                className={`  !rounded-md ${
                   navName === "/dashboard/client-user" ? "!bg-teal-600" : ""
                 }`}
               >
@@ -216,7 +232,7 @@ const Layout = () => {
                 <button
                   className={`${
                     navName === "/dashboard/client-user" ? "!text-white" : " "
-                  } link-name !font-semibold !ml-[6px] !rounded-md`}
+                  } link-name     !font-semibold !ml-[6px] !rounded-md`}
                 >
                   Client Management
                 </button>
@@ -227,7 +243,7 @@ const Layout = () => {
               <div
                 style={{ cursor: "pointer" }}
                 onClick={() => navigate("admin")}
-                className={` pl-2 !rounded-md ${
+                className={` !rounded-md ${
                   navName === "/dashboard/admin" ? "!bg-teal-600" : ""
                 }`}
               >
@@ -241,7 +257,7 @@ const Layout = () => {
                 <button
                   className={`${
                     navName === "/dashboard/admin" ? "!text-white" : " "
-                  } link-name !font-semibold !ml-[12px] !rounded-md`}
+                  } link-name     !font-semibold !ml-[12px] !rounded-md`}
                 >
                   Admin Management
                 </button>
@@ -254,7 +270,7 @@ const Layout = () => {
               <div onClick={handleLogout} style={{ cursor: "pointer" }}>
                 <HiLogout className="text-gray-500 font-bold text-2xl pl-1" />
 
-                <span className="link-name !font-semibold">Logout</span>
+                <span className="link-name     !font-semibold">Logout</span>
               </div>
             </li>
             <li className="mode">
@@ -262,12 +278,16 @@ const Layout = () => {
               {modeState === "light" ? (
                 <div style={{ cursor: "pointer" }}>
                   <FiSun className="text-gray-500 font-bold text-2xl pl-1" />
-                  <span className="link-name !font-semibold">Light Mode</span>
+                  <span className="link-name     !font-semibold">
+                    Light Mode
+                  </span>
                 </div>
               ) : (
                 <div style={{ cursor: "pointer" }}>
                   <FaRegMoon className="text-gray-500 font-bold text-2xl pl-1" />
-                  <span className="link-name !font-semibold">Dark Mode</span>
+                  <span className="link-name     !font-semibold">
+                    Dark Mode
+                  </span>
                 </div>
               )}
               <div className="mode-toggle" onClick={handleModeToggle}>

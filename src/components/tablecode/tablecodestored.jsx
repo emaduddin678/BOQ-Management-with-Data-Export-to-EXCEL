@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 const tablecodestored = () => {
   return (
@@ -87,7 +87,7 @@ const tablecodestored = () => {
             </th>
             <th
               style={{
-                width: "80px",
+                width: "100px",
                 border: "1pt solid black",
                 borderCollapse: "collapsea",
               }}
@@ -170,7 +170,7 @@ const tablecodestored = () => {
             </th>
             <th
               style={{
-                width: "80px",
+                width: "100px",
                 border: "1pt solid black",
                 borderCollapse: "collapsea",
               }}
@@ -1504,6 +1504,6 @@ const tablecodestored = () => {
       </table>
     </div>
   );
-}
+};
 
-export default tablecodestored
+export default tablecodestored;
