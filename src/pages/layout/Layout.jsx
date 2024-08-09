@@ -135,7 +135,7 @@ const Layout = () => {
           <div className="logo-image">
             <img src="/brand-logo.png" alt="" />
           </div>
-          <span className="logo_name">ASIATIC EXP</span>
+          <span className="logo_name link-name">ASIATIC EXP</span>
         </div>
         <div className="menu-items">
           <ul className="nav-links">
@@ -148,14 +148,14 @@ const Layout = () => {
                 } `}
               >
                 <RiDashboardLine
-                  className={`${
+                  className={`px-2 ${
                     navName === "/dashboard" ? "text-white" : "text-gray-500"
-                  }  text-2xl`}
+                  }  text-4xl`}
                 />
                 <button
                   className={`${
                     navName === "/dashboard" ? "!text-white" : " "
-                  } link-name     !font-semibold !ml-[14px]`}
+                  } link-name     !font-semibold !ml-[8px]`}
                 >
                   Dashboard
                 </button>
@@ -173,16 +173,16 @@ const Layout = () => {
                 }`}
               >
                 <FaRegEdit
-                  className={`${
+                  className={`px-2 ${
                     navName === "/dashboard/createboq"
                       ? "text-white"
                       : "text-gray-500"
-                  }  text-2xl pl-1`}
+                  }  text-4xl`}
                 />
                 <span
                   className={`${
                     navName === "/dashboard/createboq" ? "!text-white" : " "
-                  } link-name     !font-semibold !ml-[12px]`}
+                  } link-name     !font-semibold !ml-[6px]`}
                 >
                   Create BOQ
                 </span>
@@ -197,17 +197,17 @@ const Layout = () => {
                 }`}
               >
                 <FaHistory
-                  className={`${
+                  className={`px-2 ${
                     navName === "/dashboard/history"
                       ? "text-white"
                       : "text-gray-500"
-                  }  text-2xl pl-1`}
+                  }  text-4xl `}
                 />
                 <span
                   onClick={() => navigate("history")}
                   className={`${
                     navName === "/dashboard/history" ? "!text-white" : " "
-                  } link-name     !font-semibold !ml-[11px] !rounded-md`}
+                  } link-name     !font-semibold !ml-[7px] !rounded-md`}
                 >
                   BOQ History
                 </span>
@@ -223,16 +223,16 @@ const Layout = () => {
                 }`}
               >
                 <MdOutlineManageAccounts
-                  className={`${
+                  className={`px-2 ${
                     navName === "/dashboard/client-user"
                       ? "text-white"
                       : "text-gray-500"
-                  }  text-3xl `}
+                  }  text-[42px] `}
                 />
                 <button
                   className={`${
                     navName === "/dashboard/client-user" ? "!text-white" : " "
-                  } link-name     !font-semibold !ml-[6px] !rounded-md`}
+                  } link-name     !font-semibold !ml-[2px] !rounded-md`}
                 >
                   Client Management
                 </button>
@@ -248,16 +248,16 @@ const Layout = () => {
                 }`}
               >
                 <GrUserAdmin
-                  className={`${
+                  className={`px-2 ${
                     navName === "/dashboard/admin"
                       ? "text-white"
                       : "text-gray-500"
-                  }  text-2xl `}
+                  }  text-[40px] `}
                 />
                 <button
                   className={`${
                     navName === "/dashboard/admin" ? "!text-white" : " "
-                  } link-name     !font-semibold !ml-[12px] !rounded-md`}
+                  } link-name     !font-semibold !ml-[4px] !rounded-md`}
                 >
                   Admin Management
                 </button>
